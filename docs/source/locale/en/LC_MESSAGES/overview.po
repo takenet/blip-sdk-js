@@ -1,0 +1,28 @@
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: messaginghub-client-js 0.0.1\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2015-12-22 09:58-0200\n"
+"PO-Revision-Date: YEAR-MO-DA HO:MI+ZONE\n"
+"Last-Translator: FULL NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <LL@li.org>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+
+#: ..\..\source\overview.rst:2
+msgid "overview"
+msgstr ""
+
+#: ..\..\source\overview.rst:4
+msgid "# This is a overview"
+msgstr ""
+
+#: ..\..\source\overview.rst:8
+msgid "Questions?"
+msgstr ""
+
+#: ..\..\source\overview.rst:10
+msgid "Contact-me"
+msgstr ""

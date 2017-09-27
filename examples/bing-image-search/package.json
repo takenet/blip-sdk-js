@@ -1,0 +1,16 @@
+{
+  "name": "bing-image-search",
+  "version": "0.0.0",
+  "description": "",
+  "main": "src/index.js",
+  "scripts": {
+    "start": "node src/index.js"
+  },
+  "author": "MessagingHub",
+  "license": "MIT",
+  "dependencies": {
+    "request": "^2.74.0",
+    "request-promise": "^4.1.1",
+    "uuid": "^2.0.2"
+  }
+}

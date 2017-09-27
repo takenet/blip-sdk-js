@@ -1,0 +1,65 @@
+{
+  "name": "messaginghub-client",
+  "description": "Simple Messaging Hub client.",
+  "main": "dist/messaginghub-client.js",
+  "files": [
+    "dist/messaginghub-client.js"
+  ],
+  "scripts": {
+    "commit": "./node_modules/.bin/git-cz",
+    "bundle": "./node_modules/.bin/webpack",
+    "lint": "./node_modules/.bin/eslint .",
+    "test": "./node_modules/.bin/mocha ./test --recursive --compilers js:babel-core/register -w",
+    "test:single": "./node_modules/.bin/babel-node ./node_modules/babel-istanbul/lib/cli cover ./node_modules/mocha/bin/_mocha -- --recursive ./test -R spec",
+    "test:check-coverage": "./node_modules/.bin/istanbul check-coverage",
+    "test:upload-coverage": "cat ./coverage/lcov.info | codecov",
+    "semantic-release": "semantic-release pre && npm publish && semantic-release post"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/takenet/messaginghub-client-js.git"
+  },
+  "author": "Take.net",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/takenet/messaginghub-client-js/issues"
+  },
+  "homepage": "https://github.com/takenet/messaginghub-client-js#readme",
+  "devDependencies": {
+    "babel": "^6.3.13",
+    "babel-cli": "^6.3.17",
+    "babel-core": "^6.3.21",
+    "babel-eslint": "^4.1.6",
+    "babel-istanbul": "^0.5.9",
+    "babel-loader": "^6.2.0",
+    "babel-plugin-add-module-exports": "^0.2.1",
+    "babel-plugin-transform-object-rest-spread": "^6.16.0",
+    "babel-preset-es2015": "^6.3.13",
+    "chai": "^3.4.1",
+    "codecov.io": "^0.1.6",
+    "commitizen": "^2.8.2",
+    "cz-conventional-changelog": "^1.1.6",
+    "eslint": "^1.10.3",
+    "eslint-loader": "^1.1.1",
+    "ghooks": "^1.2.4",
+    "istanbul": "^0.4.1",
+    "json-loader": "^0.5.4",
+    "mocha": "^2.3.4",
+    "semantic-release": "^4.3.5",
+    "webpack": "^1.12.9"
+  },
+  "dependencies": {
+    "bluebird": "^3.4.0",
+    "js-base64": "^2.1.9",
+    "lime-js": "^2.5.1",
+    "lime-transport-websocket": "^2.0.0"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-conventional-changelog"
+    },
+    "ghooks": {
+      "pre-commit": "npm run lint && npm run test:single && npm run test:check-coverage"
+    }
+  }
+}

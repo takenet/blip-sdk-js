@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+
+<html lang="en" xmlns="http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="utf-8" />
+    <title>MessagingHub Simple Chat</title>
+</head>
+
+<body>
+    <h2>MessagingHub Simple Chat</h2>
+    <div>
+        <h3>Connection</h3>
+        <div>
+            <label for="identity-input">Identity:</label>
+            <input type="text" id="identity-input" value="<identifier>@msging.net" />
+        </div>
+        <div>
+            <label for="password-input">Password:</label>
+            <input type="password" id="password-input" value="123456" />
+        </div>
+        <div>
+            <label for="uri-input">Uri:</label>
+            <input type="text" id="uri-input" value="wss://msging.net:8081" />
+        </div>
+        <div>
+            <button id="connect-button" onclick="connect()">Connect</button>
+            <button id="disconnect-button" onclick="disconnect()" disabled>Disconnect</button>
+        </div>
+    </div>
+
+    <div style="float: left">
+        <h3>Messages</h3>
+        <div>
+            <label for="message-to-input">To:</label>
+            <input type="text" id="message-to-input" />
+        </div>
+        <div>
+            <label for="message-content-input">Content:</label>
+            <input type="text" id="message-content-input" />
+        </div>
+        <div>
+            <button id="message-send-button" onclick="sendMessage()">Send message</button>
+        </div>
+    </div>
+
+    <div style="float: left; margin-left: 2.0em">
+        <h3>Notifications</h3>
+        <div>
+            <label for="notification-id-input">Id:</label>
+            <input type="text" id="notification-id-input" />
+        </div>
+        <div>
+            <label for="notification-to-input">To:</label>
+            <input type="text" id="notification-to-input" />
+        </div>
+        <div>
+            <label for="notification-event-input">Event:</label>
+            <input type="text" id="notification-event-input" />
+        </div>
+        <div>
+            <button id="notification-send-button" onclick="sendNotification()">Send Notification</button>
+        </div>
+
+        <div>
+            <button id="ping-button" onclick="ping()">Ping</button>
+        </div>
+    </div>
+    <br style="clear: both">
+
+    <div>
+        <h3>Log</h3>
+        <textarea id="log-textarea" cols="80" rows="25"></textarea>
+    </div>
+
+    <script src="https://unpkg.com/bluebird@3.4.7" type="text/javascript"></script>
+    <script src="https://unpkg.com/whatwg-fetch" type="text/javascript"></script>
+    <script src="https://unpkg.com/lime-js" type="text/javascript"></script>
+    <script src="https://unpkg.com/lime-transport-http@3.0.0" type="text/javascript"></script>
+    <script src="https://unpkg.com/lime-transport-websocket" type="text/javascript"></script>
+    <script src="https://unpkg.com/lime-transport-websocket-http" type="text/javascript"></script>
+    <script src="https://unpkg.com/messaginghub-client" type="text/javascript"></script>
+    <script type="text/javascript" src="utils.js"></script>
+    <script type="text/javascript" src="index.js"></script>
+</body>
+</html>
