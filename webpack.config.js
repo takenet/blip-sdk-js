@@ -1,6 +1,6 @@
 module.exports = {
     context: __dirname + '/src',
-    entry: './MessagingHub.js',
+    entry: './BlipSdk.js',
     externals: {
         'lime-js': {
             root: 'Lime',
@@ -23,8 +23,8 @@ module.exports = {
     },
     output: {
         path: __dirname + '/dist',
-        filename: 'messaginghub-client.js',
-        library: 'MessagingHub',
+        filename: 'blip-sdk.js',
+        library: 'BlipSdk',
         libraryTarget: 'umd'
     },
     module: {

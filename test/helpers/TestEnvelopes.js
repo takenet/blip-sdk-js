@@ -1,10 +1,8 @@
-function commandSuccess(envelope) {
-    return {
-        id: envelope.id,
-        method: envelope.method,
-        status: 'success'
-    };
-}
+const commandSuccess = envelope => ({
+    id: envelope.id,
+    method: envelope.method,
+    status: 'success'
+})
 
 export const Sessions = {
     authenticating: {

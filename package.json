@@ -1,9 +1,9 @@
 {
-  "name": "messaginghub-client",
+  "name": "blip-sdk",
   "description": "Simple Messaging Hub client.",
-  "main": "dist/messaginghub-client.js",
+  "main": "dist/blip-sdk.js",
   "files": [
-    "dist/messaginghub-client.js"
+    "dist/blip-sdk.js"
   ],
   "scripts": {
     "commit": "./node_modules/.bin/git-cz",
@@ -17,14 +17,14 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/takenet/messaginghub-client-js.git"
+    "url": "git+https://github.com/takenet/blip-sdk-js.git"
   },
   "author": "Take.net",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/takenet/messaginghub-client-js/issues"
+    "url": "https://github.com/takenet/blip-sdk-js/issues"
   },
-  "homepage": "https://github.com/takenet/messaginghub-client-js#readme",
+  "homepage": "https://github.com/takenet/blip-sdk-js#readme",
   "devDependencies": {
     "babel": "^6.3.13",
     "babel-cli": "^6.3.17",

@@ -1,5 +1,5 @@
 import Lime from 'lime-js';
-import MessagingHubClient from './Client';
+import Client from './Client';
 import Application from './Application';
 
 /* istanbul ignore next */
@@ -112,6 +112,6 @@ export default class ClientBuilder {
 
     build() {
         let uri = `${this._application.scheme}://${this._application.hostName}:${this._application.port}`; 
-        return new MessagingHubClient(uri, this._transportFactory, this._application);
+        return new Client(uri, this._transportFactory, this._application);
     }
 }
