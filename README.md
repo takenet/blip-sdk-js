@@ -1,48 +1,48 @@
-# messaging-hub-client-js
-> Simple Messaging Hub client for JavaScript
+# blip-sdk-js
+> Simple BLiP SDK for JavaScript
 
 **This is a work in progress**
 
-[![bitHound Overall Score](https://www.bithound.io/github/takenet/messaginghub-client-js/badges/score.svg)](https://www.bithound.io/github/takenet/messaginghub-client-js)
-[![npm version](https://img.shields.io/npm/v/messaginghub-client.svg?style=flat-square)](https://www.npmjs.com/package/messaginghub-client)
-[![npm downloads](https://img.shields.io/npm/dm/messaginghub-client.svg?style=flat-square)](https://www.npmjs.com/package/messaginghub-client) [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square)](https://gitter.im/takenet/messaginghub-client-js)
-[![Travis branch](https://img.shields.io/travis/rust-lang/rust/master.svg?style=flat-square)](https://travis-ci.org/takenet/messaginghub-client-js)
-[![huBoard](https://img.shields.io/badge/board-tasks-green.svg?style=flat-square)](https://huboard.com/takenet/messaginghub-client-js/#/)
+[![bitHound Overall Score](https://www.bithound.io/github/takenet/blip-sdk-js/badges/score.svg)](https://www.bithound.io/github/takenet/blip-sdk-js)
+[![npm version](https://img.shields.io/npm/v/blip-sdk.svg?style=flat-square)](https://www.npmjs.com/package/blip-sdk)
+[![npm downloads](https://img.shields.io/npm/dm/blip-sdk.svg?style=flat-square)](https://www.npmjs.com/package/blip-sdk) [![Gitter](https://img.shields.io/gitter/room/nwjs/nw.js.svg?style=flat-square)](https://gitter.im/takenet/blip-sdk-js)
+[![Travis branch](https://img.shields.io/travis/rust-lang/rust/master.svg?style=flat-square)](https://travis-ci.org/takenet/blip-sdk-js)
+[![huBoard](https://img.shields.io/badge/board-tasks-green.svg?style=flat-square)](https://huboard.com/takenet/blip-sdk-js/#/)
 [![Commitizen friendly](https://img.shields.io/badge/commitizen-friendly-brightgreen.svg?style=flat-square)](http://commitizen.github.io/cz-cli/)
 [![semantic-release](https://img.shields.io/badge/%20%20%F0%9F%93%A6%F0%9F%9A%80-semantic--release-e10079.svg?style=flat-square)](https://github.com/semantic-release/semantic-release)
-[![codecov.io](https://codecov.io/github/takenet/messaginghub-client-js/coverage.svg?branch=develop)](https://codecov.io/github/takenet/messaginghub-client-js?branch=develop)
+[![codecov.io](https://codecov.io/github/takenet/blip-sdk-js/coverage.svg?branch=develop)](https://codecov.io/github/takenet/blip-sdk-js?branch=develop)
 
 --------
 
-![codecov.io](https://codecov.io/github/takenet/messaginghub-client-js/branch.svg?branch=develop)
+![codecov.io](https://codecov.io/github/takenet/blip-sdk-js/branch.svg?branch=develop)
 
-See more about Messaging Hub [here](http://messaginghub.io/)
+See more about BLiP [here](http://blip.ai/)
 
 ## How to use
-If you are using node.js (or webpack), simply install the `messaginghub-client` package from the npm registry.
+If you are using node.js (or webpack), simply install the `blip-sdk` package from the npm registry.
 
-    npm install --save messaginghub-client lime-transport-websocket
+    npm install --save blip-sdk lime-transport-websocket
 
-However, if you're building for the browser and using vanilla JavaScript, you can install the package via npm and then include the distribution script via a `<script>` tag. Note also, that in order to use `messaginghub-client` with this setting you must also install and use the `lime-js` library:
+However, if you're building for the browser and using vanilla JavaScript, you can install the package via npm and then include the distribution script via a `<script>` tag. Note also, that in order to use `blip-sdk` with this setting you must also install and use the `lime-js` library:
 ```html
 <script src="./node_modules/lime-js/dist/lime.js" type="text/javascript"></script>
-<script src="./node_modules/messaginghub-client/dist/messaginghub-client.js" type="text/javascript"></script>
+<script src="./node_modules/blip-sdk/dist/blip-sdk.js" type="text/javascript"></script>
 <script src="./node_modules/lime-transport-websocket/WebSocketTransport.js" type="text/javascript"></script>
 ```
 
 Or you can also use the script served by [unpkg](https://unpkg.com):
 ```html
 <script src="https://unpkg.com/lime-js" type="text/javascript"></script>
-<script src="https://unpkg.com/messaginghub-client" type="text/javascript"></script>
+<script src="https://unpkg.com/blip-sdk" type="text/javascript"></script>
 <script src="https://unpkg.com/lime-transport-websocket" type="text/javascript"></script>
 ```
 
-### Instantiate the MessagingHub Client
+### Instantiate the BlipSdk Client
 ```javascript
-import * as MessagingHub from 'messaginghub-client';
+import * as BlipSdk from 'blip-sdk';
 import * as WebSocketTransport from 'lime-transport-websocket'
 
-let client = new MessagingHub.ClientBuilder()
+let client = new BlipSdk.ClientBuilder()
     .withIdentifier(IDENTIFIER)
     .withAccessKey(ACCESS_KEY)
     .withTransportFactory(() => new WebSocketTransport())
@@ -51,7 +51,7 @@ let client = new MessagingHub.ClientBuilder()
 
 #### Transport packages
 
-The MessagingHubClient class uses transport classes defined according to the Lime procotol specification from the [lime-js](https://github.com/takenet/lime-js) package. There are a few official packages for Lime transport classes publicly available on NPM and on our [Github](https://github.com/takenet), but we plan on building more transport classes for node.js and the browser:
+The BlipSdk class uses transport classes defined according to the Lime procotol specification from the [lime-js](https://github.com/takenet/lime-js) package. There are a few official packages for Lime transport classes publicly available on NPM and on our [Github](https://github.com/takenet), but we plan on building more transport classes for node.js and the browser:
 - [WebSocketTransport](https://github.com/takenet/lime-transport-websocket)
 
 In order to use these transport classes in your project you must also include their script files using either npm or unpkg (refer to the [How to use](#how-to-use) section).
@@ -131,4 +131,4 @@ client.sendCommand(command)
 
 ## Contributing
 
-For information on how to contribute to this package, please refer to our [Contribution guidelines](https://github.com/takenet/messaginghub-client-js/blob/master/CONTRIBUTING.md).
+For information on how to contribute to this package, please refer to our [Contribution guidelines](https://github.com/takenet/blip-sdk-js/blob/master/CONTRIBUTING.md).
