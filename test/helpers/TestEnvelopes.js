@@ -2,7 +2,7 @@ const commandSuccess = envelope => ({
     id: envelope.id,
     method: envelope.method,
     status: 'success'
-})
+});
 
 export const Sessions = {
     authenticating: {
