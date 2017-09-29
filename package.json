@@ -1,5 +1,5 @@
 {
-  "name": "@takenet/blip-sdk",
+  "name": "blip-sdk",
   "description": "Simple Messaging Hub client.",
   "main": "dist/blip-sdk.js",
   "files": [
