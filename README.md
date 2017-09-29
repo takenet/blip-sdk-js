@@ -18,99 +18,110 @@
 
 See more about BLiP [here](http://blip.ai/)
 
-## How to use
-If you are using node.js (or webpack), simply install the `blip-sdk` package from the npm registry.
+### Installing
+
+#### Node.js
+
+If you are using `node.js` (or `webpack`), it's necessary to install `blip-sdk` package (via npm) to access the BLiP server.
 
     npm install --save blip-sdk lime-transport-websocket
 
-However, if you're building for the browser and using vanilla JavaScript, you can install the package via npm and then include the distribution script via a `<script>` tag. Note also, that in order to use `blip-sdk` with this setting you must also install and use the `lime-js` library:
+#### Browser
+
+If you are using a web application (on browser) with "pure" Javascript is possible to install the package via `npm` using the `<script>` tag. For this case beyond `blip-sdk` package it's necessary install others dependences as the `lime-js` and `lime-transport-websocket` packages:
+
 ```html
 <script src="./node_modules/lime-js/dist/lime.js" type="text/javascript"></script>
+<script src="./node_modules/lime-transport-websocket/dist/WebSocketTransport.js" type="text/javascript"></script>
 <script src="./node_modules/blip-sdk/dist/blip-sdk.js" type="text/javascript"></script>
-<script src="./node_modules/lime-transport-websocket/WebSocketTransport.js" type="text/javascript"></script>
 ```
 
-Or you can also use the script served by [unpkg](https://unpkg.com):
+You can also use [unpkg](https://unpkg.com) to get the packages if you are not using `npm` on development:
 ```html
 <script src="https://unpkg.com/lime-js" type="text/javascript"></script>
-<script src="https://unpkg.com/blip-sdk" type="text/javascript"></script>
 <script src="https://unpkg.com/lime-transport-websocket" type="text/javascript"></script>
+<script src="https://unpkg.com/blip-sdk" type="text/javascript"></script>
 ```
 
+
 ### Instantiate the BlipSdk Client
+
+You will need an `identifier` and a `access key` to connect a chatbot to **BLiP**. To get them:
+- Go to [Painel BLiP](http://portal.blip.ai/) and login;
+- Click on `Chatbots` and then click on `Create chatbot`;
+- Choose `SDK` model option;
+- Create your chatbot, then your `identifier` and `access key` will be displayed.
+
+In order to instantiate the client use `ClientBuilder` class informing the `identifier` and `access key`:
+
 ```javascript
 import * as BlipSdk from 'blip-sdk';
 import * as WebSocketTransport from 'lime-transport-websocket'
 
+// Create a client instance passing the identifier and accessKey of your chatbot 
 let client = new BlipSdk.ClientBuilder()
     .withIdentifier(IDENTIFIER)
     .withAccessKey(ACCESS_KEY)
     .withTransportFactory(() => new WebSocketTransport())
     .build();
+
+// Connect with server asynchronously
+// Connection will occurr via websocket on 8081 port.
+client.connect() // This method return a 'promise'.
+    .then(function(session) { 
+        // Connection success. Now is possible send and receive envelopes from server. */ 
+        })  
+    .catch(function(err) { /* Connection failed. */ }); 
+
 ```
 
-#### Transport packages
+Each `client` instance represent a server connection and can be reused. To close a connection use:
 
-The BlipSdk class uses transport classes defined according to the Lime procotol specification from the [lime-js](https://github.com/takenet/lime-js) package. There are a few official packages for Lime transport classes publicly available on NPM and on our [Github](https://github.com/takenet), but we plan on building more transport classes for node.js and the browser:
-- [WebSocketTransport](https://github.com/takenet/lime-transport-websocket)
-
-In order to use these transport classes in your project you must also include their script files using either npm or unpkg (refer to the [How to use](#how-to-use) section).
-
-### Connect
 ```javascript
-client.connectWithKey(identifier, key).then(/* handle connection */);
-```
 
-### Sending
-In order to ensure a connection is available and have no runtime exceptions,
-one must send messages only after the connection has been established, that is,
-all sending logic must be written inside the promise handler for the connection method,
-as shown in the examples below:
+client.close()
+    .then(function() { /* Disconnection success */ })  
+    .catch(function(err) { /* Disconnection failed */ }); 
 
-#### Sending messages
-```javascript
-client.connectWithKey(identifier, key)
-    .then(function(session) {
-      // send a message to some user
-      var msg = { type: "application/json", content: "Hello, world", to: "my@friend.com" };
-      client.sendMessage(msg);
-    });
-```
-
-#### Sending notifications
-```javascript
-client.connectWithKey(identifier, key)
-    .then(function(session) {
-      // send a "received" notification to some user
-      var notification = { to: "my@friend.com", event: Lime.NotificationEvent.RECEIVED };
-      client.sendNotification(notification);
-    });
-```
-
-#### Sending commands
-```javascript
-client.connectWithKey(identifier, key)
-    .then(function(session) {
-      // send a message to some user
-      var command = { uri: "/ping", method: Lime.CommandMethod.GET };
-      client.sendCommand(command);
-    });
 ```
 
 ### Receiving
-#### Add receivers
+
+All messages sent to the chatbot are redirected to registered `receivers` of messages and notifications. You also can define filters to each `receiver`.
+The following example show how to add a simple message receiver:
+
 ```javascript
-client.addMessageReceiver("application/json", function(message) {
-  // do something
+client.addMessageReceiver(true, function(message) {
+  // Process received message
 });
 
+```
+The next sample show how to add notification receiver with filter to `received` event type:
+
+```javascript
 client.addNotificationReceiver("received", function(notification) {
-  // show something
+  // Process received notifications
 });
+
 ```
 
-#### Remove receivers
-The client.addMessageReceiver and client.addNotificationReceiver methods return each a function which, when called, cancels the receiver subscription:
+It's also possible use a custom function as receiver filter:
+
+Example of message receiver with filter of originator:
+
+```javascript
+client.addMessageReceiver(function(message) { message.from === "553199990000@0mn.io" }, function(message) {
+  // Process received message
+});
+
+// Using expression lambda
+client.addNotificationReceiver(() => true, function(message) {
+  // Process received notifications
+});
+
+```
+
+Each registration of receivers return a `handler` that can be used to cancel the registration:
 
 ```javascript
 var removeJsonReceiver = client.addMessageReceiver("application/json", handleJson);
@@ -118,14 +129,29 @@ var removeJsonReceiver = client.addMessageReceiver("application/json", handleJso
 removeJsonReceiver();
 ```
 
-#### Receiving command answers
-Unlike messages and notifications, when command is sent, the response is received when the promise is complete. This response will contain information about the result of the execution of the command sent.
+### Sending
+
+It's possible send notifications and messages only after sessions has been stablished.
+
+The following sample show how to send a message after connection has been stablished:
 
 ```javascript
-var command = { uri: "/ping", method: Lime.CommandMethod.GET };
-client.sendCommand(command)
-    .then(function(response) {
-        // handle command repsonse
+client.connect()
+    .then(function(session) {
+      // After connection is possible send messages
+      var msg = { type: "text/plain", content: "Hello, world", to: "553199990000@0mn.io" };
+      client.sendMessage(msg);
+    });
+```
+
+The following sample show how to send a notification after connection has been stablished:
+
+```javascript
+client.connect()
+    .then(function(session) {
+      // Sending "received" notification
+      var notification = { id: "ef16284d-09b2-4d91-8220-74008f3a5788", to: "553199990000@0mn.io", event: Lime.NotificationEvent.RECEIVED };
+      client.sendNotification(notification);
     });
 ```
 
