@@ -3,7 +3,7 @@
 
 let Lime = require('lime-js');
 let WebSocketTransport = require('lime-transport-websocket');
-let MessagingHub = require('messaginghub-client');
+let MessagingHub = require('blip-sdk');
 let request = require('request-promise');
 
 // These are the MessagingHub credentials for this bot.

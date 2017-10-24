@@ -1,6 +1,7 @@
 {
   "name": "blip-sdk",
-  "description": "Simple Messaging Hub client.",
+  "version": "3.5.0",
+  "description": "BLiP SDK JavaScript.",
   "main": "dist/blip-sdk.js",
   "files": [
     "dist/blip-sdk.js"

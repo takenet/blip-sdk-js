@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 
-import { ClientBuilder } from 'messaginghub-client';
+import { ClientBuilder } from 'blip-sdk';
 import WebSocketTransport from 'lime-transport-websocket';
 import {
     RunScheduler,
