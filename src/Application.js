@@ -10,13 +10,14 @@ export default class Application {
         this.instance = 'default';
         this.domain = 'msging.net';
         this.scheme = 'wss';
-        this.hostName = 'msging.net';
-        this.port = 8081;
+        this.hostName = 'ws.msging.net';
+        this.port = 443;
         this.presence = {
             status: 'available',
             routingRule: 'identity'
         };
         this.notifyConsumed = true;
         this.authentication = new Lime.GuestAuthentication();
+        this.commandTimeout = 6000;
     }
 }

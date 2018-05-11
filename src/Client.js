@@ -17,7 +17,7 @@ export default class Client {
         this._messageReceivers = [];
         this._notificationReceivers = [];
         this._commandResolves = {};
-        this.sessionPromise = new Promise(() => {});
+        this.sessionPromise = new Promise(() => { });
 
         this._listening = false;
         this._closing = false;
@@ -93,37 +93,15 @@ export default class Client {
 
         this._clientChannel = new Lime.ClientChannel(this._transport, true, false);
         this._clientChannel.onMessage = (message) => {
-            var shouldNotify =
+            let shouldNotify =
                 message.id &&
                 (!message.to || this._clientChannel.localNode.substring(0, message.to.length) === message.to);
+
             if (shouldNotify) {
                 this.sendNotification({ id: message.id, to: message.from, event: Lime.NotificationEvent.RECEIVED });
             }
-            let hasError = this._messageReceivers.some((receiver) => {
-                if (receiver.predicate(message)) {
-                    try {
-                        receiver.callback(message);
-                    } catch (e) {
-                        if (shouldNotify) {
-                            this.sendNotification({
-                                id: message.id,
-                                to: message.from,
-                                event: Lime.NotificationEvent.FAILED,
-                                reason: {
-                                    code: 101,
-                                    description: e.message
-                                }
-                            });
-                        }
 
-                        return true;
-                    }
-                }
-            });
-
-            if (!hasError && shouldNotify && this._application.notifyConsumed) {
-                this.sendNotification({ id: message.id, to: message.from, event: Lime.NotificationEvent.CONSUMED });
-            }
+            this._loop(0, shouldNotify, message);
         };
         this._clientChannel.onNotification = (notification) =>
             this._notificationReceivers
@@ -134,6 +112,52 @@ export default class Client {
             this._clientChannel.onSessionFinished = resolve;
             this._clientChannel.onSessionFailed = reject;
         });
+    }
+
+    _loop(i, shouldNotify, message) {
+        try {
+            if (i < this._messageReceivers.length) {
+                if (this._messageReceivers[i].predicate(message)) {
+                    return Promise.resolve(this._messageReceivers[i].callback(message))
+                        .then((result) => {
+                            return new Promise((resolve, reject) => {
+                                if (result === false) {
+                                    reject();
+                                }
+                                resolve();
+                            });
+                        })
+                        .then(() => this._loop(i + 1, shouldNotify, message));
+                }
+                else {
+                    this._loop(i + 1, shouldNotify, message);
+                }
+            }
+            else {
+                this._notify(shouldNotify, message, null);
+            }
+        }
+        catch (e) {
+            this._notify(shouldNotify, message, e);
+        }
+    }
+
+    _notify(shouldNotify, message, e) {
+        if (shouldNotify && e) {
+            this.sendNotification({
+                id: message.id,
+                to: message.from,
+                event: Lime.NotificationEvent.FAILED,
+                reason: {
+                    code: 101,
+                    description: e.message
+                }
+            });
+        }
+
+        if (shouldNotify && this._application.notifyConsumed) {
+            this.sendNotification({ id: message.id, to: message.from, event: Lime.NotificationEvent.CONSUMED });
+        }
     }
 
     _sendPresenceCommand() {
@@ -196,7 +220,7 @@ export default class Client {
     }
 
     // sendCommand :: Command -> Number -> Promise Command
-    sendCommand(command, timeout = 3000) {
+    sendCommand(command, timeout = this._application.commandTimeout) {
         this._clientChannel.sendCommand(command);
 
         return Promise.race([
