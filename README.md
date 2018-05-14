@@ -11,8 +11,6 @@
 
 --------
 
-![codecov.io](https://codecov.io/github/takenet/blip-sdk-js/branch.svg?branch=develop)
-
 See more about BLiP [here](http://blip.ai/)
 
 ### Installing
