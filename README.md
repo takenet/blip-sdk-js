@@ -110,7 +110,7 @@ client.addMessageReceiver(function(message) { message.from === "553199990000@0mn
 });
 
 // Using expression lambda
-client.addNotificationReceiver(() => true, function(message) {
+client.addNotificationReceiver(() => true, function(notification) {
   // Process received notifications
 });
 
