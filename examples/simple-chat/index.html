@@ -3,27 +3,32 @@
 <html lang="en" xmlns="http://www.w3.org/1999/xhtml">
 <head>
     <meta charset="utf-8" />
-    <title>MessagingHub Simple Chat</title>
+    <title>BLiP Simple Chat</title>
 </head>
 
 <body>
-    <h2>MessagingHub Simple Chat</h2>
+    <h2>BLiP Simple Chat</h2>
     <div>
         <h3>Connection</h3>
         <div>
-            <label for="identity-input">Identity:</label>
-            <input type="text" id="identity-input" value="<identifier>@msging.net" />
+            <label for="identifier-input">Identifier:</label>
+            <input type="text" id="identifier-input" value="rafaelpa" />
         </div>
         <div>
             <label for="password-input">Password:</label>
-            <input type="password" id="password-input" value="123456" />
+            <input type="password" id="password-input" value="MTIzNDU2" />
         </div>
         <div>
             <label for="uri-input">Uri:</label>
-            <input type="text" id="uri-input" value="wss://msging.net:8081" />
+            <input type="text" id="uri-input" value="wss://ws.0mn.io:443" />
+        </div>
+        <div>
+            <label for="key-input">ApplicationKey:</label>
+            <input type="text" id="key-input" value="RGFyaW9Hb29nbGU=" />
         </div>
         <div>
             <button id="connect-button" onclick="connect()">Connect</button>
+            <button id="connect-guest-button" onclick="connectAsGuest()">Connect as guest</button>
             <button id="disconnect-button" onclick="disconnect()" disabled>Disconnect</button>
         </div>
     </div>
@@ -32,7 +37,7 @@
         <h3>Messages</h3>
         <div>
             <label for="message-to-input">To:</label>
-            <input type="text" id="message-to-input" />
+            <input type="text" id="message-to-input" value="papagaio@msging.net" />
         </div>
         <div>
             <label for="message-content-input">Content:</label>
@@ -45,6 +50,10 @@
 
     <div style="float: left; margin-left: 2.0em">
         <h3>Notifications</h3>
+        <div>
+            <label for="notification-show">Show notifications:</label>
+            <input type="checkbox" id="notification-show" checked="yes" />
+        </div>
         <div>
             <label for="notification-id-input">Id:</label>
             <input type="text" id="notification-id-input" />
@@ -78,7 +87,7 @@
     <script src="https://unpkg.com/lime-transport-http@3.0.0" type="text/javascript"></script>
     <script src="https://unpkg.com/lime-transport-websocket" type="text/javascript"></script>
     <script src="https://unpkg.com/lime-transport-websocket-http" type="text/javascript"></script>
-    <script src="https://unpkg.com/messaginghub-client" type="text/javascript"></script>
+    <script src="https://unpkg.com/blip-sdk" type="text/javascript"></script>
     <script type="text/javascript" src="utils.js"></script>
     <script type="text/javascript" src="index.js"></script>
 </body>
