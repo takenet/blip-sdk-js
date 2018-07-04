@@ -14,7 +14,7 @@
     var $identifierInput = document.getElementById('identifier-input');
     var $passwordInput = document.getElementById('password-input');
     var $uriInput = document.getElementById('uri-input');
-    var $applicationKeyInput = document.getElementById('key-input');
+    var $botIdInput = document.getElementById('bot-id-input');
     // input elements for messages
     var $messageToInput = document.getElementById('message-to-input');
     var $messageContentInput = document.getElementById('message-content-input');
@@ -108,13 +108,12 @@
 
     window.connectAsGuest = function () {
         utils.checkMandatoryInput($uriInput);
-        utils.checkMandatoryInput($applicationKeyInput);
+        utils.checkMandatoryInput($botIdInput);
 
         uri = $uriInput.value;
 
-        let applicationKey = $applicationKeyInput.value;
         let randomUserIdentifier = Lime.Guid();
-        identity = randomUserIdentifier + '_' + applicationKey + '@' + DOMAIN;
+        identity = randomUserIdentifier + '.' + $botIdInput.value + '@' + DOMAIN;
         let randomUserPassword = 'MTIzNDU2'; //any base64 string
 
         let guestIdentifier = Lime.Guid();
