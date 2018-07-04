@@ -112,8 +112,8 @@
 
         uri = $uriInput.value;
 
-        let randomUserIdentifier = Lime.Guid();
-        identity = randomUserIdentifier + '.' + $botIdInput.value + '@' + DOMAIN;
+        let randomUserIdentifier = Lime.Guid() + '.' + $botIdInput.value; //use botId to flag the user
+        identity = randomUserIdentifier + '@' + DOMAIN;
         let randomUserPassword = 'MTIzNDU2'; //any base64 string
 
         let guestIdentifier = Lime.Guid();
