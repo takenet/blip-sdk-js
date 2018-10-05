@@ -1,6 +1,6 @@
 {
   "name": "blip-sdk",
-  "version": "3.1.0",
+  "version": "4.0.0",
   "description": "BLiP SDK JavaScript",
   "main": "dist/blip-sdk.js",
   "files": [
@@ -40,7 +40,7 @@
     "chai": "^3.4.1",
     "codecov.io": "^0.1.6",
     "commitizen": "^2.8.2",
-    "cz-conventional-changelog": "^1.1.6",
+    "cz-conventional-changelog": "^2.1.0",
     "eslint": "^1.10.3",
     "eslint-loader": "^1.1.1",
     "ghooks": "^1.2.4",
