@@ -253,6 +253,7 @@ export default class Client {
 
                     delete this._commandResolves[command.id];
                     command.status = 'failure';
+                    command.timeout = true;
                     reject(command);
                 }, timeout);
             })
