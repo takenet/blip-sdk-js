@@ -1,6 +1,6 @@
 {
   "name": "blip-sdk",
-  "version": "4.0.0",
+  "version": "4.1.0",
   "description": "BLiP SDK JavaScript",
   "main": "dist/blip-sdk.js",
   "files": [
