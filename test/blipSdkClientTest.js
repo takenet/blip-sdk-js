@@ -246,6 +246,7 @@ describe('Client', function () {
     it('should do nothing when receiving unknown messages, notifications or commands', (done) => {
         this.client.addMessageReceiver('sometype', () => false);
         this.client.addNotificationReceiver('sometype', () => false);
+        this.client.addCommandReceiver('sometype', () => false);
 
         this.client
             .connectWithKey('test', 'YWJjZGVm')
