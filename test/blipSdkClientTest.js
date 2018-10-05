@@ -177,6 +177,27 @@ describe('Client', function () {
             });
     });
 
+    it('should add and remove command listeners', (done) => {
+        let f = () => undefined;
+        let g = (x) => x;
+
+        this.client
+            .connectWithKey('test', 'YWJjZGVm')
+            .then(() => {
+                let remove_f = this.client.addCommandReceiver(true, f);
+                let remove_g = this.client.addCommandReceiver(true, g);
+
+                this.client._commandReceivers[0].callback.should.eql(f);
+                this.client._commandReceivers[1].callback.should.eql(g);
+                remove_f();
+                this.client._commandReceivers[0].callback.should.eql(g);
+                remove_g();
+                this.client._commandReceivers.should.eql([]);
+
+                done();
+            });
+    });
+
     it('should call receivers predicates with the received envelope', (done) => {
         this.client.addMessageReceiver((message) => {
             message.type.should.equal('text/plain');
