@@ -279,6 +279,10 @@ export default class Client {
         return () => this._commandReceivers = this._commandReceivers.filter(this.filterReceiver(predicate, callback));
     }
 
+    clearCommandReceivers() {
+        this._commandReceivers = [];
+    }
+
     // addNotificationReceiver :: String -> (Notification -> ()) -> Function
     addNotificationReceiver(predicate, callback) {
         predicate = this.processPredicate(predicate);
@@ -297,7 +301,7 @@ export default class Client {
                 predicate = () => true;
             } else {
                 const value = predicate;
-                predicate = (notification) => notification.event === value;
+                predicate = (envelope) => envelope.event === value || envelope.type === value;
             }
         }
 
