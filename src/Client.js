@@ -16,6 +16,7 @@ export default class Client {
 
         this._messageReceivers = [];
         this._notificationReceivers = [];
+        this._commandReceivers = [];
         this._commandResolves = {};
         this.sessionPromise = new Promise(() => { });
 
@@ -103,10 +104,16 @@ export default class Client {
 
             this._loop(0, shouldNotify, message);
         };
+
         this._clientChannel.onNotification = (notification) =>
             this._notificationReceivers
                 .forEach((receiver) => receiver.predicate(notification) && receiver.callback(notification));
-        this._clientChannel.onCommand = (c) => (this._commandResolves[c.id] || identity)(c);
+
+        this._clientChannel.onCommand = (c) => {
+            (this._commandResolves[c.id] || identity)(c);
+            this._commandReceivers.forEach((receiver) =>
+                receiver.predicate(c) && receiver.callback(c));
+        };
 
         this.sessionPromise = new Promise((resolve, reject) => {
             this._clientChannel.onSessionFinished = resolve;
@@ -255,38 +262,55 @@ export default class Client {
 
     // addMessageReceiver :: String -> (Message -> ()) -> Function
     addMessageReceiver(predicate, callback) {
-        if (typeof predicate !== 'function') {
-            if (predicate === true || !predicate) {
-                predicate = () => true;
-            } else {
-                const value = predicate;
-                predicate = (message) => message.type === value;
-            }
-        }
+        predicate = this.processPredicate(predicate);
+
         this._messageReceivers.push({ predicate, callback });
-        return () => this._messageReceivers = this._messageReceivers.filter((r) => r.predicate !== predicate && r.callback !== callback);
+        return () => this._messageReceivers = this._messageReceivers.filter(this.filterReceiver(predicate, callback));
     }
 
     clearMessageReceivers() {
         this._messageReceivers = [];
     }
 
+    // addCommandReceiver :: Function -> (Command -> ()) -> Function
+    addCommandReceiver(predicate, callback) {
+        predicate = this.processPredicate(predicate);
+
+        this._commandReceivers.push({ predicate, callback });
+        return () => this._commandReceivers = this._commandReceivers.filter(this.filterReceiver(predicate, callback));
+    }
+
+    clearCommandReceivers() {
+        this._commandReceivers = [];
+    }
+
     // addNotificationReceiver :: String -> (Notification -> ()) -> Function
     addNotificationReceiver(predicate, callback) {
+        predicate = this.processPredicate(predicate);
+
+        this._notificationReceivers.push({ predicate, callback });
+        return () => this._notificationReceivers = this._notificationReceivers.filter(this.filterReceiver(predicate, callback));
+    }
+
+    clearNotificationReceivers() {
+        this._notificationReceivers = [];
+    }
+
+    processPredicate(predicate) {
         if (typeof predicate !== 'function') {
             if (predicate === true || !predicate) {
                 predicate = () => true;
             } else {
                 const value = predicate;
-                predicate = (notification) => notification.event === value;
+                predicate = (envelope) => envelope.event === value || envelope.type === value;
             }
         }
-        this._notificationReceivers.push({ predicate, callback });
-        return () => this._notificationReceivers = this._notificationReceivers.filter((r) => r.predicate !== predicate && r.callback !== callback);
+
+        return predicate;
     }
 
-    clearNotificationReceivers() {
-        this._notificationReceivers = [];
+    filterReceiver(predicate, callback) {
+        return r => r.predicate !== predicate && r.callback !== callback;
     }
 
     get listening() {
