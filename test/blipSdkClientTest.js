@@ -349,7 +349,8 @@ describe('Client', function () {
             .connectWithKey('test', 'YWJjZGVm')
             .then(() => this.client.sendCommand({ id: 'test', method: 'set', uri: '/unknown' }))
             .catch((c) => {
-                c.status.should.equal('failure');
+                const command = JSON.parse(c);
+                command.status.should.equal('failure');
                 done();
             });
     });
@@ -360,7 +361,8 @@ describe('Client', function () {
             .connectWithKey('test', 'YWJjZGVm')
             .then(() => this.client.sendCommand({ id: 'timeout', method: 'get', uri: '/timeout' }, 1000))
             .catch((c) => {
-                c.status.should.equal('failure');
+                const command = JSON.parse(c);
+                command.status.should.equal('failure');
                 done();
             });
     });

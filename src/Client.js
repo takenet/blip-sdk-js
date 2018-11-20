@@ -241,7 +241,7 @@ export default class Client {
                     }
                     else {
                         const cmd = JSON.stringify(c);
-                        reject(new Error(cmd));
+                        reject(new ClientError(cmd));
                     }
 
                     delete this._commandResolves[command.id];
@@ -257,7 +257,7 @@ export default class Client {
                     command.timeout = true;
 
                     const cmd = JSON.stringify(command);
-                    reject(new Error(cmd));
+                    reject(new ClientError(cmd));
                 }, timeout);
             })
         ]);
@@ -328,4 +328,13 @@ export default class Client {
     }
 
     get uri() { return this._uri; }
+}
+
+class ClientError extends Error {
+    constructor(message) {
+        super();
+
+        this.name = '';
+        this.message = message;
+    }
 }
