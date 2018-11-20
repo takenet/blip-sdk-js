@@ -240,7 +240,7 @@ export default class Client {
                         resolve(c);
                     }
                     else {
-                        reject(c);
+                        reject(new Error(JSON.stringify(c)));
                     }
 
                     delete this._commandResolves[command.id];
@@ -254,7 +254,7 @@ export default class Client {
                     delete this._commandResolves[command.id];
                     command.status = 'failure';
                     command.timeout = true;
-                    reject(command);
+                    reject(new Error(JSON.stringify(command)));
                 }, timeout);
             })
         ]);
