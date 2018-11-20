@@ -53,7 +53,7 @@ In order to instantiate the client use `ClientBuilder` class informing the `iden
 import * as BlipSdk from 'blip-sdk';
 import * as WebSocketTransport from 'lime-transport-websocket'
 
-// Create a client instance passing the identifier and accessKey of your chatbot 
+// Create a client instance passing the identifier and accessKey of your chatbot
 let client = new BlipSdk.ClientBuilder()
     .withIdentifier(IDENTIFIER)
     .withAccessKey(ACCESS_KEY)
@@ -63,10 +63,10 @@ let client = new BlipSdk.ClientBuilder()
 // Connect with server asynchronously
 // Connection will occurr via websocket on 8081 port.
 client.connect() // This method return a 'promise'.
-    .then(function(session) { 
-        // Connection success. Now is possible send and receive envelopes from server. */ 
-        })  
-    .catch(function(err) { /* Connection failed. */ }); 
+    .then(function(session) {
+        // Connection success. Now is possible send and receive envelopes from server. */
+        })
+    .catch(function(err) { /* Connection failed. */ });
 
 ```
 
@@ -75,8 +75,8 @@ Each `client` instance represent a server connection and can be reused. To close
 ```javascript
 
 client.close()
-    .then(function() { /* Disconnection success */ })  
-    .catch(function(err) { /* Disconnection failed */ }); 
+    .then(function() { /* Disconnection success */ })
+    .catch(function(err) { /* Disconnection failed */ });
 
 ```
 

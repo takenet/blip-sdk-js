@@ -240,13 +240,14 @@ export default class Client {
                         resolve(c);
                     }
                     else {
-                        reject(new Error(JSON.stringify(c)));
+                        const cmd = JSON.stringify(c);
+                        reject(new Error(cmd));
                     }
 
                     delete this._commandResolves[command.id];
                 };
             }),
-            new Promise((resolve, reject) => {
+            new Promise((_, reject) => {
                 setTimeout(() => {
                     if (!this._commandResolves[command.id])
                         return;
@@ -254,7 +255,9 @@ export default class Client {
                     delete this._commandResolves[command.id];
                     command.status = 'failure';
                     command.timeout = true;
-                    reject(new Error(JSON.stringify(command)));
+
+                    const cmd = JSON.stringify(command);
+                    reject(new Error(cmd));
                 }, timeout);
             })
         ]);
