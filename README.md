@@ -38,7 +38,6 @@ You can also use [unpkg](https://unpkg.com) to get the packages if you are not u
 <script src="https://unpkg.com/blip-sdk" type="text/javascript"></script>
 ```
 
-
 ### Instantiate the BlipSdk Client
 
 You will need an `identifier` and a `access key` to connect a chatbot to **BLiP**. To get them:
