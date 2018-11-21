@@ -100,6 +100,11 @@ export default class ClientBuilder {
         return this;
     }
 
+    withRoundRobin(roundRobin) {
+        this._application.presence.roundRobin = roundRobin;
+        return this;
+    }
+
     withNotifyConsumed(notifyConsumed){
         this._application.notifyConsumed = notifyConsumed;
         return this;
