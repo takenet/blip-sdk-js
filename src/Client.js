@@ -19,6 +19,8 @@ export default class Client {
         this._commandReceivers = [];
         this._commandResolves = {};
         this.sessionPromise = new Promise(() => { });
+        this.sessionFinishedHandlers = [];
+        this.sessionFailedHandlers = [];
 
         this._listening = false;
         this._closing = false;
@@ -119,6 +121,16 @@ export default class Client {
             this._clientChannel.onSessionFinished = resolve;
             this._clientChannel.onSessionFailed = reject;
         });
+
+        if (this.sessionFinishedHandlers.length != 0) {
+            this._clientChannel.onSessionFinished = (e) => 
+                this.sessionFinishedHandlers.forEach((handler) => handler(e));
+        }
+
+        if (this.sessionFailedHandlers.length != 0) {
+            this._clientChannel.onSessionFailed = (e) => 
+                this.sessionFailedHandlers.forEach((handler) => handler(e));
+        }
     }
 
     _loop(i, shouldNotify, message) {
@@ -297,6 +309,28 @@ export default class Client {
 
     clearNotificationReceivers() {
         this._notificationReceivers = [];
+    }
+
+    // addSessionFinishedHandlers :: String -> (Session -> ()) -> Function
+    addSessionFinishedHandlers(callback) {
+        this.sessionFinishedHandlers.push(callback);
+        this.sessionFinishedHandlers = this.sessionFinishedHandlers.filter(this.filterReceiver(null, callback));
+        this._clientChannel.onSessionFinished = (s) => this.sessionFinishedHandlers.forEach((handler) => handler(s));
+    }
+
+    clearSessionFinishedHandlers() {
+        this.sessionFinishedHandlers = [];
+    }
+
+    // addSessionFailedHandlers :: String -> (Session -> ()) -> Function
+    addSessionFailedHandlers(callback) {
+        this.sessionFailedHandlers.push(callback);
+        this.sessionFailedHandlers = this.sessionFailedHandlers.filter(this.filterReceiver(null, callback));
+        this._clientChannel.onSessionFailed = (s) => this.sessionFailedHandlers.forEach((handler) => handler(s));
+    }
+
+    clearSessionFailedHandlers() {
+        this.sessionFailedHandlers = [];
     }
 
     processPredicate(predicate) {
