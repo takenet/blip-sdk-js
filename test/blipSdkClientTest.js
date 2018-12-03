@@ -438,7 +438,7 @@ describe('Client', function () {
             .connectWithKey('test', 'YWJjZGVm')
             .then(() => this.client.sendCommand({ id: 'test', method: 'set', uri: '/killWithFail' }));
 
-        this.client.addSessionFinishedHandlers((s) => {
+        this.client.addSessionFinishedHandlers(() => {
             throw new Error('Should not call this handler');
         });
         this.client.addSessionFailedHandlers((s) => {
