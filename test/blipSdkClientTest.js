@@ -379,6 +379,17 @@ describe('Client', function () {
             });
     });
 
+    it('should receive a finished session on handler', (done) => {
+        this.client
+            .connectWithKey('test', 'YWJjZGVm')
+            .then(() => this.client.sendCommand({ id: 'test', method: 'set', uri: '/kill' }));
+
+        this.client.addSessionFinishedHandlers((s) => {
+            s.state.should.equal('finished');
+            done();
+        });
+    });
+
     it('should received a failed session', (done) => {
         this.client
             .connectWithKey('test', 'YWJjZGVm')
@@ -396,5 +407,24 @@ describe('Client', function () {
                 s.reason.code.should.equal(11);
                 done();
             });
+    });
+
+    it('should received a failed session on handler', (done) => {
+        this.client
+            .connectWithKey('test', 'YWJjZGVm')
+            .then(() => this.client.sendCommand({ id: 'test', method: 'set', uri: '/killWithFail' }));
+
+        this.client.addSessionFinishedHandlers((s) => {
+            this.client.clearSessionFinishedHandlers();
+            this.client.clearSessionFailedHandlers();
+            s.state.should.equal('failed');
+            s.reason.code.should.equal(11);
+            done();
+        });
+        this.client.addSessionFailedHandlers((s) => {
+            s.state.should.equal('failed');
+            s.reason.code.should.equal(11);
+            return this.client.close();
+        });
     });
 });
