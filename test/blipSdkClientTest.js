@@ -390,6 +390,17 @@ describe('Client', function () {
         });
     });
 
+    it('should receive a finished session on handler after client close', (done) => {
+        this.client
+            .connectWithKey('test', 'YWJjZGVm')
+            .then(() => this.client.close());
+
+        this.client.addSessionFinishedHandlers((s) => {
+            s.state.should.equal('finished');
+            done();
+        });
+    });
+
     it('should received a failed session', (done) => {
         this.client
             .connectWithKey('test', 'YWJjZGVm')
@@ -414,17 +425,27 @@ describe('Client', function () {
             .connectWithKey('test', 'YWJjZGVm')
             .then(() => this.client.sendCommand({ id: 'test', method: 'set', uri: '/killWithFail' }));
 
-        this.client.addSessionFinishedHandlers((s) => {
-            this.client.clearSessionFinishedHandlers();
-            this.client.clearSessionFailedHandlers();
+        this.client.addSessionFailedHandlers((s) => {
             s.state.should.equal('failed');
             s.reason.code.should.equal(11);
+            this.client.close();
             done();
+        });
+    });
+
+    it('should not receive a finished session on after session already closed', (done) => {
+        this.client
+            .connectWithKey('test', 'YWJjZGVm')
+            .then(() => this.client.sendCommand({ id: 'test', method: 'set', uri: '/killWithFail' }));
+
+        this.client.addSessionFinishedHandlers((s) => {
+            throw new Error('Should not call this handler');
         });
         this.client.addSessionFailedHandlers((s) => {
             s.state.should.equal('failed');
             s.reason.code.should.equal(11);
-            return this.client.close();
+            this.client.close();
+            done();
         });
     });
 });

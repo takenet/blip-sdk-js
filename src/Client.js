@@ -207,7 +207,6 @@ export default class Client {
 
     // close :: Promise ()
     close() {
-        console.log('Closing', this._closing, this._clientChannel.state);
         this._closing = true;
 
         if (this._clientChannel.state === Lime.SessionState.ESTABLISHED) {
@@ -217,11 +216,7 @@ export default class Client {
         return Promise.resolve(
             this.sessionPromise
                 .then(s =>  s)
-                .catch(s => {
-                    this.sessionFinishedHandlers.unshift();
-                    this.sessionFinishedHandlers.forEach(handler => handler(s));
-                    return Promise.resolve(s);
-                })
+                .catch(s => Promise.resolve(s))
         );
     }
 
