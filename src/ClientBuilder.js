@@ -116,7 +116,7 @@ export default class ClientBuilder {
     }
 
     build() {
-        let uri = `${this._application.scheme}://${this._application.hostName}:${this._application.port}`; 
+        let uri = `${this._application.scheme}://${this._application.hostName}:${this._application.port}?identifier=${this._application.identifier}`; 
         return new Client(uri, this._transportFactory, this._application);
     }
 }
