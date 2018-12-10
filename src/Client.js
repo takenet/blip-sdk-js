@@ -3,6 +3,7 @@ import Application from './Application';
 import Promise from 'bluebird';
 
 const identity = (x) => x;
+const MAX_CONNECTION_TRY_COUNT = 10;
 
 export default class Client {
     // Client :: String -> Transport? -> Client
@@ -25,6 +26,7 @@ export default class Client {
         this._listening = false;
         this._closing = false;
         this._uri = uri;
+        this._connectionTryCount = 0;
 
         this._transportFactory = typeof transportFactory === 'function' ? transportFactory : () => transportFactory;
         this._transport = this._transportFactory();
@@ -63,6 +65,11 @@ export default class Client {
     }
 
     connect() {
+        if (this._connectionTryCount >= MAX_CONNECTION_TRY_COUNT) {
+            throw new Error(`Could not connect: Max connection try count of ${MAX_CONNECTION_TRY_COUNT} reached. Please check you network and refresh the page.`);
+        }
+
+        this._connectionTryCount++;
         this._closing = false;
         return this
             ._transport
@@ -77,6 +84,7 @@ export default class Client {
             .then((session) => this._sendReceiptsCommand().then(() => session))
             .then((session) => {
                 this.listening = true;
+                this._connectionTryCount = 0;
                 return session;
             });
     }
@@ -84,14 +92,19 @@ export default class Client {
     _initializeClientChannel() {
         this._transport.onClose = () => {
             this.listening = false;
-            // try to reconnect in 1 second
-            setTimeout(() => {
-                if (!this._closing) {
-                    this._transport = this._transportFactory();
-                    this._initializeClientChannel();
-                    this.connect();
-                }
-            }, 1000);
+            if (!this._closing) {
+                // Use an exponential backoff for the timeout
+                let timeout = 100 * Math.pow(2, this._connectionTryCount);
+
+                // try to reconnect after the timeout
+                setTimeout(() => {
+                    if (!this._closing) {
+                        this._transport = this._transportFactory();
+                        this._initializeClientChannel();
+                        this.connect();
+                    }
+                }, timeout);
+            }
         };
 
         this._clientChannel = new Lime.ClientChannel(this._transport, true, false);
