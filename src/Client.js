@@ -131,10 +131,14 @@ export default class Client {
         };
 
         this.sessionPromise = new Promise((resolve, reject) => {
-            this.sessionFinishedHandlers.unshift(resolve);
-            this.sessionFailedHandlers.unshift(reject);
-            this._clientChannel.onSessionFinished = (s) => this.sessionFinishedHandlers.forEach(handler => handler(s));
-            this._clientChannel.onSessionFailed = (s) => this.sessionFailedHandlers.forEach(handler => handler(s));
+            this._clientChannel.onSessionFinished = (s) => {
+                resolve(s);
+                this.sessionFinishedHandlers.forEach(handler => handler(s));
+            };
+            this._clientChannel.onSessionFailed = (s) => {
+                reject(s);
+                this.sessionFailedHandlers.forEach(handler => handler(s));
+            };
         });
     }
 
@@ -228,7 +232,7 @@ export default class Client {
 
         return Promise.resolve(
             this.sessionPromise
-                .then(s =>  s)
+                .then(s => s)
                 .catch(s => Promise.resolve(s))
         );
     }
