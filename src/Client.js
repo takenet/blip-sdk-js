@@ -20,6 +20,8 @@ export default class Client {
         this._commandReceivers = [];
         this._commandResolves = {};
         this.sessionPromise = new Promise(() => { });
+        this.sessionFinishedHandlers = [];
+        this.sessionFailedHandlers = [];
 
         this._listening = false;
         this._closing = false;
@@ -129,8 +131,14 @@ export default class Client {
         };
 
         this.sessionPromise = new Promise((resolve, reject) => {
-            this._clientChannel.onSessionFinished = resolve;
-            this._clientChannel.onSessionFailed = reject;
+            this._clientChannel.onSessionFinished = (s) => {
+                resolve(s);
+                this.sessionFinishedHandlers.forEach(handler => handler(s));
+            };
+            this._clientChannel.onSessionFailed = (s) => {
+                reject(s);
+                this.sessionFailedHandlers.forEach(handler => handler(s));
+            };
         });
     }
 
@@ -310,6 +318,24 @@ export default class Client {
 
     clearNotificationReceivers() {
         this._notificationReceivers = [];
+    }
+
+    addSessionFinishedHandlers(callback) {
+        this.sessionFinishedHandlers.push(callback);
+        return () => this.sessionFinishedHandlers = this.sessionFinishedHandlers.filter(this.filterReceiver(null, callback));
+    }
+
+    clearSessionFinishedHandlers() {
+        this.sessionFinishedHandlers = [];
+    }
+
+    addSessionFailedHandlers(callback) {
+        this.sessionFailedHandlers.push(callback);
+        return () => this.sessionFailedHandlers = this.sessionFailedHandlers.filter(this.filterReceiver(null, callback));
+    }
+
+    clearSessionFailedHandlers() {
+        this.sessionFailedHandlers = [];
     }
 
     processPredicate(predicate) {
