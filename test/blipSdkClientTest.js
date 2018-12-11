@@ -401,6 +401,25 @@ describe('Client', function () {
         });
     });
 
+    it('should receive a finished session on promise and on handler', (done) => {
+        this.client
+            .connectWithKey('test', 'YWJjZGVm')
+            .then(() => this.client.sendCommand({ id: 'test', method: 'set', uri: '/kill' }));
+
+        let handlersCalled = 0;
+        this.client.sessionPromise
+            .then((s) => {
+                s.state.should.equal('finished');
+                handlersCalled++;
+                handlersCalled.should.equals(2);
+                done();
+            });
+        this.client.addSessionFinishedHandlers((s) => {
+            s.state.should.equal('finished');
+            handlersCalled++;
+        });
+    });
+
     it('should received a failed session', (done) => {
         this.client
             .connectWithKey('test', 'YWJjZGVm')
@@ -430,6 +449,29 @@ describe('Client', function () {
             s.reason.code.should.equal(11);
             this.client.close();
             done();
+        });
+    });
+
+    it('should received a failed session on promise and on handler', (done) => {
+        this.client
+            .connectWithKey('test', 'YWJjZGVm')
+            .then(() => this.client.sendCommand({ id: 'test', method: 'set', uri: '/killWithFail' }));
+
+        let handlersCalled = 0;
+        this.client
+            .sessionPromise
+            .catch((s) => {
+                s.state.should.equal('failed');
+                s.reason.code.should.equal(11);
+                handlersCalled++;
+                handlersCalled.should.equals(2);
+                done();
+            });
+        this.client.addSessionFailedHandlers((s) => {
+            s.state.should.equal('failed');
+            s.reason.code.should.equal(11);
+            handlersCalled++;
+            this.client.close();
         });
     });
 
