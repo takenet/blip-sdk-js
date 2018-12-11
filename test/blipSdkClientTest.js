@@ -385,6 +385,7 @@ describe('Client', function () {
             .then(() => this.client.sendCommand({ id: 'test', method: 'set', uri: '/kill' }));
 
         this.client.addSessionFinishedHandlers((s) => {
+            this.client.clearSessionFinishedHandlers();
             s.state.should.equal('finished');
             done();
         });
@@ -445,6 +446,7 @@ describe('Client', function () {
             .then(() => this.client.sendCommand({ id: 'test', method: 'set', uri: '/killWithFail' }));
 
         this.client.addSessionFailedHandlers((s) => {
+            this.client.clearSessionFailedHandlers();
             s.state.should.equal('failed');
             s.reason.code.should.equal(11);
             this.client.close();
