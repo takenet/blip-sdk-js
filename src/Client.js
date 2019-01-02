@@ -114,7 +114,14 @@ export default class Client {
                 (!message.to || this._clientChannel.localNode.substring(0, message.to.length) === message.to);
 
             if (shouldNotify) {
-                this.sendNotification({ id: message.id, to: message.from, event: Lime.NotificationEvent.RECEIVED });
+                this.sendNotification({
+                    id: message.id,
+                    to: message.pp || message.from,
+                    event: Lime.NotificationEvent.RECEIVED,
+                    metadata: {
+                        '#message.to': message.to
+                    }
+                });
             }
 
             this._loop(0, shouldNotify, message);
@@ -184,7 +191,14 @@ export default class Client {
         }
 
         if (shouldNotify && this._application.notifyConsumed) {
-            this.sendNotification({ id: message.id, to: message.from, event: Lime.NotificationEvent.CONSUMED });
+            this.sendNotification({
+                id: message.id,
+                to: message.pp || message.from,
+                event: Lime.NotificationEvent.CONSUMED,
+                metadata: {
+                    '#message.to': message.to
+                }
+            });
         }
     }
 
