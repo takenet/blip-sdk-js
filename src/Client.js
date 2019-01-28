@@ -111,7 +111,7 @@ export default class Client {
         this._clientChannel.onMessage = (message) => {
             let shouldNotify =
                 message.id &&
-                (!message.to || this._clientChannel.localNode.substring(0, message.to.length) === message.to);
+                (!message.to || this._clientChannel.localNode.substring(0, message.to.length).toLowerCase() === message.to.toLowerCase());
 
             if (shouldNotify) {
                 this.sendNotification({
