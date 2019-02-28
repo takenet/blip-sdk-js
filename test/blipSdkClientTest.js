@@ -363,6 +363,7 @@ describe('Client', function () {
             .catch((c) => {
                 const command = JSON.parse(c);
                 command.status.should.equal('failure');
+                command.timeout.should.equal(true);
                 done();
             });
     });

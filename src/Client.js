@@ -263,9 +263,7 @@ export default class Client {
 
     // sendCommand :: Command -> Number -> Promise Command
     sendCommand(command, timeout = this._application.commandTimeout) {
-        this._clientChannel.sendCommand(command);
-
-        return Promise.race([
+        var commandPromise = Promise.race([
             new Promise((resolve, reject) => {
                 this._commandResolves[command.id] = (c) => {
                     if (!c.status)
@@ -296,6 +294,9 @@ export default class Client {
                 }, timeout);
             })
         ]);
+
+        this._clientChannel.sendCommand(command);
+        return commandPromise;
     }
 
     // addMessageReceiver :: String -> (Message -> ()) -> Function
