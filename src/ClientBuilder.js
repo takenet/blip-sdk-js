@@ -115,6 +115,11 @@ export default class ClientBuilder {
         return this;
     }
 
+    withCommandTimeout(timeoutInMilliSecs){
+        this._application.commandTimeout = timeoutInMilliSecs;
+        return this;
+    }
+
     build() {
         let uri = `${this._application.scheme}://${this._application.hostName}:${this._application.port}`; 
         return new Client(uri, this._transportFactory, this._application);
