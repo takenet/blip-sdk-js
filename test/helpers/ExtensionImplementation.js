@@ -1,4 +1,4 @@
-import ExtensionBase from "../../src/Extensions/ExtensionBase";
+import ExtensionBase from '../../src/Extensions/ExtensionBase';
 
 export default class ExtensionImplementation extends ExtensionBase {
     

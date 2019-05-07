@@ -1,9 +1,11 @@
 'use strict';
 
+/*eslint-env node, mocha */
+
 import ExtensionImplementation from './helpers/ExtensionImplementation';
 
 const TEST_URI = '/test';
-const TEST_URI_TEMPLATE = '/test/{0}'
+const TEST_URI_TEMPLATE = '/test/{0}';
 const TEST_TO = 'postmaster@test.ai';
 const TEST_TYPE = 'application/vnd.iris.extension.test+json';
 const TEST_RESOURCE = {
@@ -102,7 +104,7 @@ describe('ExtensionBase', function() {
         };
 
         const uri = this.extension.buildResourceQuery(TEST_URI, query);
-        uri.should.equal(`${TEST_URI}?skip=0&take=100&deep=true`)
+        uri.should.equal(`${TEST_URI}?skip=0&take=100&deep=true`);
         done();
     });
 
