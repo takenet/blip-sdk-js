@@ -4,4 +4,4 @@ check:
         lines: 90
         branches: 85
         functions: 90
-        excludes: \*Test.*\
+        excludes: [ \*Test.*\, \**\Extensions\**\ ]
