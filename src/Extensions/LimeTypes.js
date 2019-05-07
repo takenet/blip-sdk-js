@@ -1,0 +1,1 @@
+export const COLLECTION = 'application/vnd.lime.collection+json';

@@ -1,6 +1,7 @@
 import Lime from 'lime-js';
 import Application from './Application';
 import Promise from 'bluebird';
+import ArtificialIntelligenceExtension from './Extensions/ArtificialIntelligence/ArtificialIntelligence';
 
 const identity = (x) => x;
 const MAX_CONNECTION_TRY_COUNT = 10;
@@ -32,6 +33,8 @@ export default class Client {
         this._transport = this._transportFactory();
 
         this._initializeClientChannel();
+
+        this._extensions = {};
     }
 
     // connectWithGuest :: String -> Promise Session
@@ -236,6 +239,15 @@ export default class Client {
         });
     }
 
+    _getExtension(type) {
+        let extension = this._extensions[type];
+        if (!extension) {
+            extension = new type(this);
+            this._extensions[type] = extension;
+        }
+        return extension;
+    }
+
     // close :: Promise ()
     close() {
         this._closing = true;
@@ -382,6 +394,10 @@ export default class Client {
     }
 
     get uri() { return this._uri; }
+
+    get ArtificialIntelligence() {
+        return this._getExtension(ArtificialIntelligenceExtension);
+    }
 }
 
 class ClientError extends Error {
