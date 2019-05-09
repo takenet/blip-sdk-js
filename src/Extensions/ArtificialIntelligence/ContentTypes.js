@@ -1,5 +1,3 @@
-export * from '../LimeTypes';
-
 export const INTENTION = 'application/vnd.iris.ai.intention+json';
 
 export const ENTITY = 'application/vnd.iris.ai.entity+json';

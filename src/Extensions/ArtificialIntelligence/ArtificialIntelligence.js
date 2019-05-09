@@ -1,5 +1,6 @@
-import * as ContentTypes from './ContentTypes';
 import * as UriTemplates from './UriTemplates';
+import * as ContentTypes from './ContentTypes';
+import * as Lime from 'lime-js';
 import ExtensionBase from '../ExtensionBase';
 
 const POSTMASTER_AI = 'postmaster@ai.msging.net';
@@ -90,7 +91,7 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
 
     setIntents(intents) {
         return this._processCommand(
-            this._createSetCommand(UriTemplates.INTENTIONS, ContentTypes.COLLECTION, {
+            this._createSetCommand(UriTemplates.INTENTIONS, Lime.ContentTypes.COLLECTION, {
                 itemType: ContentTypes.INTENTION,
                 items: intents
             }, this._to));
@@ -103,7 +104,7 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
 
     mergeIntents(intents) {
         return this._processCommand(
-            this._createMergeCommand(UriTemplates.INTENTIONS, ContentTypes.COLLECTION, {
+            this._createMergeCommand(UriTemplates.INTENTIONS, Lime.ContentTypes.COLLECTION, {
                 itemType: ContentTypes.INTENTION,
                 items: intents
             }, this._to));
@@ -136,7 +137,7 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
     setIntentAnswers(id, answers) {
         return this._processCommand(
             this._createSetCommand(
-                this._buildUri(UriTemplates.INTENTION_ANSWERS, id), ContentTypes.COLLECTION, {
+                this._buildUri(UriTemplates.INTENTION_ANSWERS, id), Lime.ContentTypes.COLLECTION, {
                     itemType: ContentTypes.ANSWER,
                     items: answers
                 }, this._to));
@@ -158,7 +159,7 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
     setIntentQuestions(id, questions) {
         return this._processCommand(
             this._createSetCommand(
-                this._buildUri(UriTemplates.INTENTION_QUESTIONS, id), ContentTypes.COLLECTION, {
+                this._buildUri(UriTemplates.INTENTION_QUESTIONS, id), Lime.ContentTypes.COLLECTION, {
                     itemType: ContentTypes.QUESTION,
                     items: questions
                 }, this._to));
@@ -260,7 +261,7 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
     setWordSetResource(id, resource) {
         return this._processCommand(
             this._createSetCommand(
-                this._buildUri(UriTemplates.WORD_SET, id), ContentTypes.COLLECTION, {
+                this._buildUri(UriTemplates.WORD_SET, id), Lime.ContentTypes.COLLECTION, {
                     itemType: ContentTypes.WORD_SET_WORD,
                     items: resource
                 }, this._to));
