@@ -5,6 +5,7 @@
 import Client from '../src/Client';
 import TcpTransport from './helpers/TcpTransport';
 import TcpLimeServer from './helpers/TcpLimeServer';
+import ArtificialIntelligenceExtension from '../src/Extensions/ArtificialIntelligence/ArtificialIntelligence';
 
 require('chai').should();
 
@@ -492,5 +493,16 @@ describe('Client', function () {
             this.client.close();
             done();
         });
+    });
+
+    it('should return artificial intelligence extension instance', (done) => {
+        this.client
+            .connectWithKey('test', 'YWJjZGVm')
+            .then(() => this.client.sendCommand({ id: 'test', method: 'set', uri: '/killWithFail' }));
+
+        this.client.ArtificialIntelligence.constructor.name
+            .should.equal(ArtificialIntelligenceExtension.name);
+
+        done();
     });
 });
