@@ -1,0 +1,22 @@
+{
+  "name": "blip-sdk-example",
+  "version": "1.0.0",
+  "description": "An example of a BLiP creation with SDK feature",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "build": "babel index.js -d dist",
+    "start": "npm run build && node dist/index.js"
+  },
+  "author": "Bruno Camarda",
+  "license": "ISC",
+  "dependencies": {
+    "blip-sdk": "^6.7.0",
+    "lime-transport-websocket": "^2.0.2"
+  },
+  "devDependencies": {
+    "@babel/cli": "^7.4.4",
+    "@babel/core": "^7.4.5",
+    "@babel/preset-env": "^7.4.5"
+  }
+}
