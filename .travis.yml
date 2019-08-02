@@ -1,5 +1,6 @@
 sudo: required
 language: node_js
+node_js: '8.11.3'
 cache:
   directories:
     - node_modules
@@ -14,7 +15,7 @@ notifications:
 node_js:
   - 'node' # use latest version
 before_install:
-  - npm i -g npm@^2.0.0
+  - npm i -g npm
 
 before_script:
   - npm prune
