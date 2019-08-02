@@ -33,7 +33,7 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
 
     setAnalysisByEmail(analysis) {
         return this._processCommand(
-            this._createSetCommand(UriTemplates.ANALYSIS_EMAIL, null, analysis, this._to));
+            this._createSetCommand(UriTemplates.ANALYSIS_EMAIL, ContentTypes.JSON_DOCUMENT, analysis, this._to));
     }
 
     setAnalysisFeedback(id, analysisFeedback) {
