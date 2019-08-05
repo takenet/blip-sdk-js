@@ -50,7 +50,7 @@ In order to instantiate the client use `ClientBuilder` class informing the `iden
 
 ```javascript
 import * as BlipSdk from 'blip-sdk';
-import * as WebSocketTransport from 'lime-transport-websocket'
+import WebSocketTransport from 'lime-transport-websocket'
 
 // Create a client instance passing the identifier and accessKey of your chatbot
 let client = new BlipSdk.ClientBuilder()
