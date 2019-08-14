@@ -18,8 +18,8 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
         return this._processCommand(
             this._createGetCommand(
                 this._buildResourceQuery(UriTemplates.ANALYSIS, {
-                    skip: skip,
-                    take: take,
+                    $skip: skip,
+                    $take: take,
                     ascending: ascending,
                     $filter: filter
                 }),
