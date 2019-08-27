@@ -42,9 +42,10 @@ You can also use [unpkg](https://unpkg.com) to get the packages if you are not u
 
 You will need an `identifier` and a `access key` to connect a chatbot to **BLiP**. To get them:
 - Go to [Painel BLiP](http://portal.blip.ai/) and login;
-- Click on `Chatbots` and then click on `Create chatbot`;
-- Choose `SDK` model option;
-- Create your chatbot, then your `identifier` and `access key` will be displayed.
+- Click **Create chatbot**;
+- Choose `Create from scratch` model option;
+- Go to **Settings** and click in **Connection Information**
+- Get your bot's `identifier` and `access key`.
 
 In order to instantiate the client use `ClientBuilder` class informing the `identifier` and `access key`:
 
