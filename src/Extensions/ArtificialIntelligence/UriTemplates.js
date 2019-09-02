@@ -2,6 +2,8 @@ export const ANALYSIS = '/analysis';
 
 export const ANALYSIS_FEEDBACK = '/analysis/{0}/feedback';
 
+export const ANALYSES_FEEDBACK = '/analysis/feedback';
+
 export const ANALYSIS_EMAIL = '/enhancement/send-by-email';
 
 export const ANALYTICS = '/analytics/confusion-matrix';

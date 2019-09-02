@@ -20,7 +20,7 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
                 this._buildResourceQuery(UriTemplates.ANALYSIS, {
                     $skip: skip,
                     $take: take,
-                    ascending: ascending,
+                    $ascending: ascending,
                     $filter: filter
                 }),
                 this._to));
@@ -41,6 +41,14 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
             this._createSetCommand(
                 this._buildUri(UriTemplates.ANALYSIS_FEEDBACK, id),
                 ContentTypes.ANALYSIS_FEEDBACK, analysisFeedback, this._to));
+    }
+
+    setAnalysesFeedback(analyses) {
+        return this._processCommand(
+            this._createSetCommand(UriTemplates.ANALYSES_FEEDBACK, Lime.ContentTypes.COLLECTION, {
+                itemType: ContentTypes.ANALYSIS_FEEDBACK,
+                items: analyses
+            }, this._to));
     }
 
     // Analytics (Confusion Matrix)
@@ -76,11 +84,11 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
         return this._processCommand(
             this._createGetCommand(
                 this._buildResourceQuery(UriTemplates.INTENTIONS, {
-                    skip: skip,
-                    take: take,
+                    $skip: skip,
+                    $take: take,
                     deep: deep,
                     name: name,
-                    ascending: ascending
+                    $ascending: ascending
                 }), this._to));
     }
 
@@ -128,9 +136,9 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
             this._createGetCommand(
                 this._buildResourceQuery(
                     this._buildUri(UriTemplates.INTENTION_ANSWERS, id), {
-                        skip: skip,
-                        take: take,
-                        ascending: ascending
+                        $skip: skip,
+                        $take: take,
+                        $ascending: ascending
                     }), this._to));
     }
 
@@ -181,9 +189,9 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
         return this._processCommand(
             this._createGetCommand(
                 this._buildResourceQuery(UriTemplates.ENTITIES, {
-                    skip: skip,
-                    take: take,
-                    ascending: ascending,
+                    $skip: skip,
+                    $take: take,
+                    $ascending: ascending,
                     name: name
                 }), this._to));
     }
