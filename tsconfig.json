@@ -1,0 +1,38 @@
+{
+    "rules": {
+        "quotemark": [true, "single"]
+    },
+    "compilerOptions": {
+        "outDir": "./dist",
+        "rootDir": ".",
+        "target": "es5",
+        "module": "esnext",
+        "moduleResolution": "node",
+        "emitDecoratorMetadata": true,
+        "experimentalDecorators": true,
+        "allowSyntheticDefaultImports": true,
+        "downlevelIteration": true,
+        "sourceMap": true,
+        "noUnusedParameters": false,
+        "importHelpers": true,
+        "strictNullChecks": false,
+        "types": ["node"],
+        "typeRoots": ["./src/Types/"],
+        "pretty": true,
+        "lib": [
+            "es2016",
+            "dom"
+        ],
+        "baseUrl": "./src"
+    },
+    "exclude": [
+        "node_modules",
+        "dist"
+    ],
+    "angularCompilerOptions": {
+        "genDir": "./compiled",
+        "skipMetadataEmit": true
+    },
+    "compileOnSave": false,
+    "buildOnSave": false
+}
