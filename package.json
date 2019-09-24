@@ -5,7 +5,8 @@
   "main": "dist/blip-sdk.js",
   "types": "dist/types/index.d.ts",
   "files": [
-    "dist/blip-sdk.js"
+    "dist/blip-sdk.js",
+    "dist/types/index.d.ts"
   ],
   "scripts": {
     "commit": "./node_modules/.bin/git-cz",
