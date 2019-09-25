@@ -249,7 +249,7 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
 
     // Word Set
 
-    getWordSet(id, deep) {
+    getWordSet(id, deep = false) {
         return this._processCommand(
             this._createGetCommand(
                 this._buildResourceQuery(
@@ -258,7 +258,7 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
                     }), this._to));
     }
 
-    getWordSets(deep) {
+    getWordSets(deep = false) {
         return this._processCommand(
             this._createGetCommand(
                 this._buildResourceQuery(UriTemplates.WORD_SETS, {
