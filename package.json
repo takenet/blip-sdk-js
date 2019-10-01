@@ -53,8 +53,8 @@
   "dependencies": {
     "bluebird": "^3.4.0",
     "js-base64": "^2.1.9",
-    "lime-js": "^2.6.0",
-    "lime-transport-websocket": "^2.0.0"
+    "lime-js": "^3.0.1",
+    "lime-transport-websocket": "^2.0.3"
   },
   "config": {
     "commitizen": {
