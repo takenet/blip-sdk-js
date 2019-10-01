@@ -1,17 +1,17 @@
-function DtsBundlePlugin() { }
-DtsBundlePlugin.prototype.apply = function (compiler) {
-    compiler.plugin('done', function () {
-        var dts = require('dts-bundle');
+// function DtsBundlePlugin() { }
+// DtsBundlePlugin.prototype.apply = function (compiler) {
+//     compiler.plugin('done', function () {
+//         var dts = require('dts-bundle');
 
-        dts.bundle({
-            name: 'blip-sdk',
-            main: __dirname + '/src/**/*.d.ts',
-            out: __dirname + '/dist/types/blip-sdk.d.ts',
-            removeSource: false,
-            outputAsModuleFolder: true
-        });
-    });
-};
+//         dts.bundle({
+//             name: 'blip-sdk',
+//             main: __dirname + '/src/**/*.d.ts',
+//             out: __dirname + '/dist/types/blip-sdk.d.ts',
+//             removeSource: false,
+//             outputAsModuleFolder: true
+//         });
+//     });
+// };
 
 module.exports = {
     context: __dirname + '/src',
