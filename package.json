@@ -3,11 +3,14 @@
   "version": "4.0.0",
   "description": "BLiP SDK JavaScript",
   "main": "dist/blip-sdk.js",
-  "types": "dist/types/index.d.ts",
+  "typings": "dist/types/blip-sdk.d.ts",
   "files": [
     "dist/blip-sdk.js",
-    "dist/types/index.d.ts"
+    "dist/types/blip-sdk.d.ts"
   ],
+  "typescript": {
+    "definition": "dist/types/blip-sdk.d.ts"
+  },
   "scripts": {
     "commit": "./node_modules/.bin/git-cz",
     "bundle": "./node_modules/.bin/webpack",

@@ -6,7 +6,7 @@ DtsBundlePlugin.prototype.apply = function (compiler) {
         dts.bundle({
             name: 'blip-sdk',
             main: __dirname + '/src/**/*.d.ts',
-            out: __dirname + '/dist/types/index.d.ts',
+            out: __dirname + '/dist/types/blip-sdk.d.ts',
             removeSource: false,
             outputAsModuleFolder: true
         });
@@ -52,7 +52,7 @@ module.exports = {
         ]
     },
     plugins: [
-        new DtsBundlePlugin()
+        // new DtsBundlePlugin()
     ],
     devtool: 'source-map'
 };
