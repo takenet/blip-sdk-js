@@ -235,9 +235,9 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
             this._createGetCommand(UriTemplates.MODELS_SUMMARY, this._to));
     }
 
-    getLastTrainedAndPublishedModels() {
+    getLastTrainedAndLastPublishedModels() {
         return this._processCommand(
-            this._createGetCommand(UriTemplates.LAST_TRAINED_PUBLISH_MODELS, this._to));
+            this._createGetCommand(UriTemplates.LAST_TRAINED_AND_LAST_PUBLISH_MODELS, this._to));
     }
 
     trainModel() {
