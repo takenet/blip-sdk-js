@@ -1,4 +1,4 @@
-# blip-sdk-js 
+# blip-sdk-js
 > Simple BLiP SDK for JavaScript
 
 **This is a work in progress**
