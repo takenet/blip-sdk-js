@@ -50,6 +50,7 @@ export declare interface IArtificialIntelligence {
     getModel(id: string);
     getModels(skip?: number, take?: number, ascending?: boolean);
     getModelSummary();
+    getLastTrainedOrPublishedModel();
     trainModel();
     publishModel(id: string);
 
