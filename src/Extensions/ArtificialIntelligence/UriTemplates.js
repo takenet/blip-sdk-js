@@ -32,7 +32,7 @@ export const MODEL = '/model/{0}';
 
 export const MODELS_SUMMARY = '/models/summary';
 
-export const LAST_TRAINED_AND_LAST_PUBLISH_MODELS = '/models/last-trained-or-published';
+export const LAST_TRAINED_OR_PUBLISH_MODEL = '/models/last-trained-or-published';
 
 export const WORD_SETS = '/word-sets';
 
