@@ -21,7 +21,7 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
                     $skip: skip,
                     $take: take,
                     $ascending: ascending,
-                    filter,
+                    $filter: filter,
                     intents,
                     feedback,
                     source,
