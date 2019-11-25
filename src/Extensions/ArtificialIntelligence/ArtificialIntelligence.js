@@ -14,14 +14,21 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
 
     // Analysis
 
-    getAnalysis(skip = 0, take = 100, ascending = false, filter = '') {
+    getAnalysis(skip = 0, take = 100, ascending = false, filter = '', intents = '', feedback = '', source = '', beginDate = '', endDate = '', minScore = '', maxScore = '') {
         return this._processCommand(
             this._createGetCommand(
                 this._buildResourceQuery(UriTemplates.ANALYSIS, {
                     $skip: skip,
                     $take: take,
                     $ascending: ascending,
-                    $filter: filter
+                    filter,
+                    intents,
+                    feedback,
+                    source,
+                    beginDate,
+                    endDate,
+                    minScore,
+                    maxScore
                 }),
                 this._to));
     }
