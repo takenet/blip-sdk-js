@@ -76,12 +76,12 @@ export default class ExtensionBase {
     _buildResourceQuery(uri, query) {
         let i = 0;
         Object.keys(query).forEach(key => {
-            const value = query[key].toString();
+            let value = query[key].toString();
             if (value) {
                 uri += i === 0 ? '?' : '&';
                 
                 if (Array.isArray(value)) {
-                    value = value.concat(',')
+                    value = value.concat(',');
                 }
 
                 uri += `${key}=${value}`;
