@@ -1,6 +1,6 @@
 {
   "name": "blip-sdk",
-  "version": "7.3.3",
+  "version": "7.3.4",
   "description": "BLiP SDK JavaScript",
   "main": "dist/blip-sdk.js",
   "typings": "dist/types/blip-sdk.d.ts",
