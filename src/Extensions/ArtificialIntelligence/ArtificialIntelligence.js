@@ -14,7 +14,7 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
 
     // Analysis
 
-    getAnalysis(skip = 0, take = 100, ascending = false, filter = '', intents = '', feedback = '', source = '', beginDate = '', endDate = '', minScore = '', maxScore = '') {
+    getAnalysis(skip = 0, take = 100, ascending = false, filter = '', intents = '', feedbacks = [], source = '', beginDate = '', endDate = '', minScore = '', maxScore = '') {
         return this._processCommand(
             this._createGetCommand(
                 this._buildResourceQuery(UriTemplates.ANALYSIS, {
@@ -23,7 +23,7 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
                     $ascending: ascending,
                     $filter: filter,
                     intents,
-                    feedback,
+                    feedbacks,
                     source,
                     beginDate,
                     endDate,
