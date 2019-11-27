@@ -1,12 +1,16 @@
 {
   "name": "blip-sdk",
-  "version": "4.0.0",
+  "version": "7.3.3",
   "description": "BLiP SDK JavaScript",
   "main": "dist/blip-sdk.js",
-  "types": "dist/index.d.ts",
+  "typings": "dist/types/blip-sdk.d.ts",
   "files": [
-    "dist/blip-sdk.js"
+    "dist/blip-sdk.js",
+    "dist/types/blip-sdk.d.ts"
   ],
+  "typescript": {
+    "definition": "dist/types/blip-sdk.d.ts"
+  },
   "scripts": {
     "commit": "./node_modules/.bin/git-cz",
     "bundle": "./node_modules/.bin/webpack",
@@ -57,8 +61,8 @@
   "dependencies": {
     "bluebird": "^3.4.0",
     "js-base64": "^2.1.9",
-    "lime-js": "^2.6.0",
-    "lime-transport-websocket": "^2.0.0"
+    "lime-js": "^3.0.1",
+    "lime-transport-websocket": "^2.0.3"
   },
   "config": {
     "commitizen": {

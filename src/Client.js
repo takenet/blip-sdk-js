@@ -311,6 +311,11 @@ export default class Client {
         return commandPromise;
     }
 
+    // processCommand :: Command -> Number -> Promise Command
+    processCommand(command, timeout = this._application.commandTimeout) {
+        return this._clientChannel.processCommand(command, timeout);
+    }
+
     // addMessageReceiver :: String -> (Message -> ()) -> Function
     addMessageReceiver(predicate, callback) {
         predicate = this.processPredicate(predicate);
