@@ -79,6 +79,11 @@ export default class ExtensionBase {
             const value = query[key].toString();
             if (value) {
                 uri += i === 0 ? '?' : '&';
+                
+                if (Array.isArray(value)) {
+                    value = value.concat(',')
+                }
+
                 uri += `${key}=${value}`;
                 i += 1;
             }
