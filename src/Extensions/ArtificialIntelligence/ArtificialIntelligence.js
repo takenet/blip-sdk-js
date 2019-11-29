@@ -38,9 +38,21 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
             this._createSetCommand(UriTemplates.ANALYSIS, ContentTypes.ANALYSIS, analysis, this._to));
     }
 
-    setAnalysisByEmail(analysis) {
+    setAnalysisByEmail(emailAndFilter, intents = [], feedbacks = [], source = '', beginDate = '', endDate = '', minScore = '', maxScore = '') {
         return this._processCommand(
-            this._createSetCommand(UriTemplates.ANALYSIS_EMAIL, ContentTypes.JSON_DOCUMENT, analysis, this._to));
+            this._createSetCommand(UriTemplates.ANALYSIS_EMAIL, ContentTypes.JSON_DOCUMENT, {
+                email: emailAndFilter.email,
+                filter: this._buildResourceQuery(UriTemplates.ANALYSIS, {
+                    $filter: emailAndFilter.filter,
+                    intents,
+                    feedbacks,
+                    source,
+                    beginDate,
+                    endDate,
+                    minScore,
+                    maxScore
+                })
+            }, this._to));
     }
 
     setAnalysisFeedback(id, analysisFeedback) {

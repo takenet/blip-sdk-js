@@ -2,9 +2,11 @@ export declare interface IArtificialIntelligence {
 
     // Analysis
 
-    getAnalysis(skip?: number, take?: number, ascending?: boolean, filter?: string);
-    analyse(analysis: object);
-    setAnalysisByEmail(analysis: object);
+    getAnalysis(skip?: number, take?: number, ascending?: boolean, filter?: string, intents?: string[], feedbacks?: string[],
+        source?: string, beginDate?: string, endDate?: string, minScore?: string, maxScore?: string);
+    analyse(emailAndFilter: object);
+    setAnalysisByEmail(emailAndFilter: object, intents?: string[], feedbacks?: string[],
+        source?: string, beginDate?: string, endDate?: string, minScore?: string, maxScore?: string);
     setAnalysisFeedback(id: string, analysisFeedback: object);
     setAnalysesFeedback(analyses: object[]);
 
