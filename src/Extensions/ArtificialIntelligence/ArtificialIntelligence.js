@@ -148,7 +148,7 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
             this._createDeleteCommand(UriTemplates.INTENTIONS, this._to));
     }
 
-    // Answers
+    // Intents Answers
 
     getIntentAnswers(id, skip = 0, take = 100, ascending = false) {
         return this._processCommand(
@@ -176,7 +176,7 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
                 this._buildUri(UriTemplates.INTENTION_ANSWER, id, answerId), this._to));
     }
 
-    // Questions
+    // Intents Questions
 
     getIntentQuestions(id) {
         return this._processCommand(
@@ -312,6 +312,23 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
     analyseWordSet(analysis) {
         return this._processCommand(
             this._createSetCommand(UriTemplates.WORD_SETS_ANALYSIS, ContentTypes.WORD_SETS_ANALYSIS, analysis, this._to));
+    }
+
+    //Content Assistant
+
+    getContents(skip = 0, take = 100) {
+        return this._processCommand(
+            this._createGetCommand(
+                this._buildResourceQuery(UriTemplates.CONTENTS, {
+                    $skip: skip,
+                    $take: take
+                }), this._to));
+    }
+
+    getContent(id) {
+        return this._processCommand(
+            this._createGetCommand(
+                this._buildUri(UriTemplates.CONTENT, id), this._to));
     }
 
 }
