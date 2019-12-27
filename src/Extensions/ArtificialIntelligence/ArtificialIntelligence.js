@@ -328,7 +328,12 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
     getContent(id) {
         return this._processCommand(
             this._createGetCommand(
-                this._buildUri(UriTemplates.CONTENT, id), this._to));
+                this._buildUri(UriTemplates.CONTENT_ID, id), this._to));
+    }
+
+    setContent(content) {
+        return this._processCommand(
+            this._createSetCommand(UriTemplates.CONTENT, ContentTypes.CONTENT_RESULT, content, this._to));
     }
 
 }
