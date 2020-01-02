@@ -316,12 +316,28 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
 
     //Content Assistant
 
-    getContents(skip = 0, take = 100) {
+    analyseContent(analysis) {
+        return this._processCommand(
+            this._createSetCommand(UriTemplates.CONTENT_ANALYSIS, ContentTypes.ANALYSIS, analysis, this._to));
+    }
+
+    matchContent(combination) {
+        return this._processCommand(
+            this._createSetCommand(UriTemplates.CONTENT_ANALYSIS, ContentTypes.CONTENT_COMBINATION, combination, this._to));
+    }
+
+    getContents(skip = 0, take = 100, ascending = false, intents = [], entities = [], text = '', beginDate = '', endDate = '') {
         return this._processCommand(
             this._createGetCommand(
                 this._buildResourceQuery(UriTemplates.CONTENTS, {
                     $skip: skip,
-                    $take: take
+                    $take: take,
+                    $ascending: ascending,
+                    intents: intents,
+                    entities: entities,
+                    text: text,
+                    beginDate: beginDate,
+                    endDate: endDate
                 }), this._to));
     }
 
@@ -334,6 +350,33 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
     setContent(content) {
         return this._processCommand(
             this._createSetCommand(UriTemplates.CONTENT, ContentTypes.CONTENT_RESULT, content, this._to));
+    }
+
+    setContentResult(id, content) {
+        return this._processCommand(
+            this._createSetCommand(
+                this._buildUri(UriTemplates.CONTENT_ID, id), ContentTypes.CONTENT_RESULT, content, this._to));
+    }
+
+    setContentCombination(id, combination) {
+        return this._processCommand(
+            this._createSetCommand(
+                this._buildUri(UriTemplates.CONTENT_ID, id), ContentTypes.CONTENT_COMBINATION, combination, this._to));
+    }
+
+    setContentCombinations(id, combinations) {
+        return this._processCommand(
+            this._createSetCommand(
+                this._buildUri(UriTemplates.CONTENT_ID, id), Lime.ContentTypes.COLLECTION, {
+                    itemType: ContentTypes.CONTENT_COMBINATION,
+                    items: combinations
+                }, this._to));
+    }
+
+    deleteContent(id) {
+        return this._processCommand(
+            this._createDeleteCommand(
+                this._buildUri(UriTemplates.CONTENT_ID, id), this._to));
     }
 
 }
