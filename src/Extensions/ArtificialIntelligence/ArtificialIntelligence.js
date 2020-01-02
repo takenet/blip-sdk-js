@@ -336,4 +336,9 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
             this._createSetCommand(UriTemplates.CONTENT, ContentTypes.CONTENT_RESULT, content, this._to));
     }
 
+    deleteContent(id) {
+        return this._processCommand(
+            this._createDeleteCommand(
+                this._buildUri(UriTemplates.CONTENT_ID, id), this._to));
+    }
 }
