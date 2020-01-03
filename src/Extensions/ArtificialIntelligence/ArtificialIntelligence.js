@@ -329,7 +329,7 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
     getContents(skip = 0, take = 100, ascending = false, intents = [], entities = [], text = '', beginDate = '', endDate = '') {
         return this._processCommand(
             this._createGetCommand(
-                this._buildResourceQuery(UriTemplates.CONTENTS, {
+                this._buildResourceQuery(UriTemplates.CONTENT, {
                     $skip: skip,
                     $take: take,
                     $ascending: ascending,

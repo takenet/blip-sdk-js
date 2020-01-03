@@ -40,8 +40,6 @@ export const WORD_SET = '/word-sets/{0}';
 
 export const WORD_SETS_ANALYSIS = '/word-sets-analysis ';
 
-export const CONTENTS = '/content';
-
 export const CONTENT = '/content';
 
 export const CONTENT_ID = '/content/{0}';
