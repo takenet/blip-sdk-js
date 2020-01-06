@@ -39,3 +39,9 @@ export const WORD_SETS = '/word-sets';
 export const WORD_SET = '/word-sets/{0}';
 
 export const WORD_SETS_ANALYSIS = '/word-sets-analysis ';
+
+export const CONTENT = '/content';
+
+export const CONTENT_ID = '/content/{0}';
+
+export const CONTENT_ANALYSIS = '/content/analysis';
