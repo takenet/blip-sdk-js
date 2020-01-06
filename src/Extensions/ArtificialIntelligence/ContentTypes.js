@@ -6,6 +6,10 @@ export const ANSWER = 'application/vnd.iris.ai.answer+json';
 
 export const CONFUSION_MATRIX = 'application/vnd.iris.ai.confusion-matrix+json';
 
+export const CONTENT_RESULT = 'application/vnd.iris.ai.content-result+json';
+
+export const CONTENT_COMBINATION = 'application/vnd.iris.ai.content-combination+json';
+
 export const ENTITY = 'application/vnd.iris.ai.entity+json';
 
 export const INTENTION = 'application/vnd.iris.ai.intention+json';

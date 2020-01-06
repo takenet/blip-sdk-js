@@ -148,7 +148,7 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
             this._createDeleteCommand(UriTemplates.INTENTIONS, this._to));
     }
 
-    // Answers
+    // Intents Answers
 
     getIntentAnswers(id, skip = 0, take = 100, ascending = false) {
         return this._processCommand(
@@ -176,7 +176,7 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
                 this._buildUri(UriTemplates.INTENTION_ANSWER, id, answerId), this._to));
     }
 
-    // Questions
+    // Intents Questions
 
     getIntentQuestions(id) {
         return this._processCommand(
@@ -312,6 +312,71 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
     analyseWordSet(analysis) {
         return this._processCommand(
             this._createSetCommand(UriTemplates.WORD_SETS_ANALYSIS, ContentTypes.WORD_SETS_ANALYSIS, analysis, this._to));
+    }
+
+    //Content Assistant
+
+    analyseContent(analysis) {
+        return this._processCommand(
+            this._createSetCommand(UriTemplates.CONTENT_ANALYSIS, ContentTypes.ANALYSIS, analysis, this._to));
+    }
+
+    matchContent(combination) {
+        return this._processCommand(
+            this._createSetCommand(UriTemplates.CONTENT_ANALYSIS, ContentTypes.CONTENT_COMBINATION, combination, this._to));
+    }
+
+    getContents(skip = 0, take = 100, ascending = false, intents = [], entities = [], text = '', beginDate = '', endDate = '') {
+        return this._processCommand(
+            this._createGetCommand(
+                this._buildResourceQuery(UriTemplates.CONTENT, {
+                    $skip: skip,
+                    $take: take,
+                    $ascending: ascending,
+                    intents: intents,
+                    entities: entities,
+                    text: text,
+                    beginDate: beginDate,
+                    endDate: endDate
+                }), this._to));
+    }
+
+    getContent(id) {
+        return this._processCommand(
+            this._createGetCommand(
+                this._buildUri(UriTemplates.CONTENT_ID, id), this._to));
+    }
+
+    setContent(content) {
+        return this._processCommand(
+            this._createSetCommand(UriTemplates.CONTENT, ContentTypes.CONTENT_RESULT, content, this._to));
+    }
+
+    setContentResult(id, content) {
+        return this._processCommand(
+            this._createSetCommand(
+                this._buildUri(UriTemplates.CONTENT_ID, id), ContentTypes.CONTENT_RESULT, content, this._to));
+    }
+
+    setContentCombination(id, combination) {
+        return this._processCommand(
+            this._createSetCommand(
+                this._buildUri(UriTemplates.CONTENT_ID, id), ContentTypes.CONTENT_COMBINATION, combination, this._to));
+    }
+
+    setContentCombinations(id, combinations) {
+        return this._processCommand(
+            this._createSetCommand(
+                this._buildUri(UriTemplates.CONTENT_ID, id), Lime.ContentTypes.COLLECTION, {
+                    itemType: ContentTypes.CONTENT_COMBINATION,
+                    items: combinations
+                }, this._to));
+    }
+
+    deleteContent(id) {
+        return this._processCommand(
+            this._createDeleteCommand(
+                this._buildUri(UriTemplates.CONTENT_ID, id), this._to));
     }
 
 }
