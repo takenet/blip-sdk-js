@@ -14,7 +14,9 @@ jobs:
           node-version: 12
       - run: npm ci
       - run: npm run lint
-      - run: npm run test
+      - run: npm run test:single
+      - run: npm run test:check-coverage
+      - run: npm run test:upload-coverage
 
   publish-npm:
     needs: test
@@ -26,6 +28,6 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - run: npm ci
-      - run: npm publish
+      - run: npm run semantic-release
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
