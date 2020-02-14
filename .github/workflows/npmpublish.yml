@@ -13,10 +13,13 @@ jobs:
         with:
           node-version: 12
       - run: npm ci
+      - run: npm i -g codecov
       - run: npm run lint
       - run: npm run test:single
       - run: npm run test:check-coverage
       - run: npm run test:upload-coverage
+        env:
+          CODECOV_TOKEN: ${{secrets.codecov_token}}
 
   publish-npm:
     needs: test
@@ -28,6 +31,7 @@ jobs:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - run: npm ci
-      - run: npm run semantic-release
+      - run: npm version ${{github.ref}}
+      - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
