@@ -26,14 +26,13 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v2
+      - uses: actions/setup-node@v1
+      - uses: actions/github-script@0.2.0
       - name: Get package version
-        uses: actions/github-script@0.2.0
         id: get_version
         run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
-
       - name: Publish package
-        uses: actions/checkout@v2
-        uses: actions/setup-node@v1
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
