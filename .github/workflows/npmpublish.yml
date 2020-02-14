@@ -5,6 +5,7 @@ on:
     types: [published]
 
 jobs:
+
   test:
     runs-on: ubuntu-latest
     steps:
@@ -27,11 +28,18 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
+      - uses: actions/github-script@0.2.0
+
+      - name: Get package version
+        id: get_version
+        run: echo ::set-output name=VERSION::${GITHUB_REF/refs\/tags\//}
+
+      - name: Publish package
         with:
           node-version: 12
           registry-url: https://registry.npmjs.org/
       - run: npm ci
-      - run: npm version ${{github.ref}}
+      - run: npm version ${{steps.get_version.outputs.VERSION}}
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.npm_token}}
