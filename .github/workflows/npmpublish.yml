@@ -17,7 +17,7 @@ jobs:
       - run: npm run lint
       - run: npm run test:single
       - run: npm run test:check-coverage
-      - run: npm run test:upload-coverage
+      - run: cat ./coverage/lcov.info | codecov
         env:
           CODECOV_TOKEN: ${{secrets.codecov_token}}
 
