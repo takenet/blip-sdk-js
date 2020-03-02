@@ -275,16 +275,14 @@ export default class Client {
 
     // sendCommand :: Command -> Number -> Promise Command
     sendCommand(command, timeout = this._application.commandTimeout) {
-        var commandPromise = Promise.race([
+        const commandPromise = Promise.race([
             new Promise((resolve, reject) => {
                 this._commandResolves[command.id] = (c) => {
-                    if (!c.status)
-                        return;
-
-                    if (c.status === Lime.CommandStatus.SUCCESS) {
+                    if (!c.status){
+                        reject(new ClientError('Command received without a status'));
+                    } else if (c.status === Lime.CommandStatus.SUCCESS) {
                         resolve(c);
-                    }
-                    else {
+                    } else {
                         const cmd = JSON.stringify(c);
                         reject(new ClientError(cmd));
                     }
@@ -292,10 +290,11 @@ export default class Client {
                     delete this._commandResolves[command.id];
                 };
             }),
-            new Promise((_, reject) => {
+            new Promise((resolve, reject) => {
                 setTimeout(() => {
-                    if (!this._commandResolves[command.id])
-                        return;
+                    if (!this._commandResolves[command.id]) {
+                        resolve('Command already resolved');
+                    }
 
                     delete this._commandResolves[command.id];
                     command.status = 'failure';
