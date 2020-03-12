@@ -278,7 +278,7 @@ export default class Client {
         const commandPromise = Promise.race([
             new Promise((resolve, reject) => {
                 this._commandResolves[command.id] = (c) => {
-                    if (!c.status){
+                    if (!c.status) {
                         reject(new ClientError('Command received without a status'));
                     } else if (c.status === Lime.CommandStatus.SUCCESS) {
                         resolve(c);
