@@ -29,7 +29,7 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
         ...otherParams
     } = {}) {
         if (arguments.length > 1 && typeof arguments[0] !== 'object') {
-            console.warn('You are using the deprecated signature of \'%s\', which does not exists anymore!',
+            throw new Error('You are using the deprecated signature of \'%s\', which does not exists anymore!',
             `${ArtificialIntelligenceExtension.name}.getAnalysis`);
         }
 
