@@ -14,7 +14,25 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
 
     // Analysis
 
-    getAnalysis(skip = 0, take = 100, ascending = false, filter = '', intents = [], feedbacks = [], source = '', beginDate = '', endDate = '', minScore = '', maxScore = '') {
+    getAnalysis({
+        skip = 0,
+        take = 100,
+        ascending = false,
+        filter = '',
+        intents = [],
+        feedbacks = [],
+        source = '',
+        beginDate = '',
+        endDate = '',
+        minScore = '',
+        maxScore = '',
+        ...otherParams
+    } = {}) {
+        if (arguments.length > 1 && typeof arguments[0] !== 'object') {
+            console.warn('You are using the deprecated signature of \'%s\', which does not exists anymore!',
+            `${ArtificialIntelligenceExtension.name}.getAnalysis`);
+        }
+
         return this._processCommand(
             this._createGetCommand(
                 this._buildResourceQuery(UriTemplates.ANALYSIS, {
@@ -28,7 +46,8 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
                     beginDate,
                     endDate,
                     minScore,
-                    maxScore
+                    maxScore,
+                    ...otherParams
                 }),
                 this._to));
     }
