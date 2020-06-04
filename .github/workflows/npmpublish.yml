@@ -28,10 +28,6 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
-      - uses: actions/github-script@0.2.0
-        with:
-          node-version: 12
-          registry-url: https://registry.npmjs.org/
       - run: npm ci
       - run: npm publish
         env:
