@@ -2,7 +2,11 @@ name: Publish
 
 on:
   release:
-    types: [published]
+    types: [ published ]
+  push:
+    branches: [ master ]
+    paths:
+      - '.github/workflows/npmpublish.yml'
 
 jobs:
 
@@ -28,6 +32,7 @@ jobs:
     steps:
       - uses: actions/checkout@v2
       - uses: actions/setup-node@v1
+      - run: npm adduser --registry=https://registry.npmjs.org/:_authToken=${{secrets.npm_token}}
       - run: npm ci
       - run: npm publish
         env:
