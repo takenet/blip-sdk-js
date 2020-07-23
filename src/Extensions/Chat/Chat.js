@@ -2,13 +2,10 @@ import * as UriTemplates from './UriTemplates';
 import * as ContentTypes from './ContentTypes';
 import ExtensionBase from '../ExtensionBase';
 
-const POSTMASTER = 'postmaster@msging.net';
+export default class ChatExtension extends ExtensionBase {
 
-export default class Chat extends ExtensionBase {
-
-    constructor(client, to = null) {
+    constructor(client) {
         super(client);
-        this._to = to ? to : POSTMASTER;
     }
 
     getThreads(take = 100, messageDate = '') {
@@ -17,18 +14,16 @@ export default class Chat extends ExtensionBase {
                 this._buildResourceQuery(UriTemplates.THREADS, {
                     $take: take,
                     messageDate: messageDate
-                }),
-                this._to));
+                })));
     }
 
     getThread(
-        identity,
+        identity = '',
         take = 100,
-        after = '',
         messageId = '',
         storageDate = '',
         direction = '',
-        decryptContent = false
+        after = ''
     ) {
         return this._processCommand(
             this._createGetCommand(
@@ -39,22 +34,20 @@ export default class Chat extends ExtensionBase {
                         after: after,
                         messageId: messageId,
                         storageDate: storageDate,
-                        direction: direction,
-                        decryptContent: decryptContent
-                    }),
-                this._to));
+                        direction: direction
+                    })));
     }
 
     getThreadUnreadMessages(identity) {
         return this._processCommand(
             this._createGetCommand(
-                this._buildUri(UriTemplates.THREAD_UNREAD_MESSAGES, identity), this._to));
+                this._buildUri(UriTemplates.THREAD_UNREAD_MESSAGES, identity)));
     }
 
     setThread(identity, thread) {
         return this._processCommand(
             this._createSetCommand(
-                this._buildUri(UriTemplates.THREAD, identity), ContentTypes.THREAD_MESSAGE, thread, this._to));
+                this._buildUri(UriTemplates.THREAD, identity), ContentTypes.THREAD_MESSAGE, thread));
     }
 
 }

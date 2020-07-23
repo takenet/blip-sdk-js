@@ -3,7 +3,7 @@ import ExtensionBase from '../ExtensionBase';
 
 const POSTMASTER_MEDIA = 'postmaster@media.msging.net';
 
-export default class Media extends ExtensionBase {
+export default class MediaExtension extends ExtensionBase {
 
     constructor(client, to = null) {
         super(client);

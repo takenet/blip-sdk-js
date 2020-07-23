@@ -2,6 +2,8 @@ import Lime from 'lime-js';
 import Application from './Application';
 import Promise from 'bluebird';
 import ArtificialIntelligenceExtension from './Extensions/ArtificialIntelligence/ArtificialIntelligence';
+import MediaExtension from './Extensions/Media/Media';
+import ChatExtension from './Extensions/Chat/Chat';
 
 const identity = (x) => x;
 const MAX_CONNECTION_TRY_COUNT = 10;
@@ -402,6 +404,14 @@ export default class Client {
 
     get ArtificialIntelligence() {
         return this._getExtension(ArtificialIntelligenceExtension);
+    }
+
+    get Media() {
+        return this._getExtension(MediaExtension);
+    }
+
+    get Chat() {
+        return this._getExtension(ChatExtension);
     }
 }
 
