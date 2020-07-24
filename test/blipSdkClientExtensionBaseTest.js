@@ -17,14 +17,14 @@ require('chai').should();
 describe('ExtensionBase', function() {
 
     beforeEach((done) => {
-        this.extension = new ExtensionBase({});
+        this.extension = new ExtensionBase({}, TEST_TO);
         done();
     });
 
     it('should create GET command', (done) => {
 
         const command = this.extension
-            ._createGetCommand(TEST_URI, TEST_TO);
+            ._createGetCommand(TEST_URI);
 
         command.uri.should.equal(TEST_URI);
         command.to.should.equal(TEST_TO);
@@ -37,10 +37,25 @@ describe('ExtensionBase', function() {
 
     });
 
+    it('should creage GET command without \'to\'', (done) => {
+
+        const extension = new ExtensionBase({});
+        const command = extension._createGetCommand(TEST_URI);
+
+        command.uri.should.equal(TEST_URI);
+        command.should.not.have.property('to');
+        command.should.have.property('id');
+        command.should.not.have.property('resource');
+        command.method.should.equal('get');
+
+        done();
+
+    });
+
     it('should create DELETE command', (done) => {
 
         const command = this.extension
-            ._createDeleteCommand(TEST_URI, TEST_TO);
+            ._createDeleteCommand(TEST_URI);
 
         command.uri.should.equal(TEST_URI);
         command.to.should.equal(TEST_TO);
@@ -56,7 +71,7 @@ describe('ExtensionBase', function() {
     it('should create SET command', (done) => {
 
         const command = this.extension
-            ._createSetCommand(TEST_URI, TEST_TYPE, TEST_RESOURCE, TEST_TO);
+            ._createSetCommand(TEST_URI, TEST_TYPE, TEST_RESOURCE);
 
         command.uri.should.equal(TEST_URI);
         command.to.should.equal(TEST_TO);
@@ -74,7 +89,7 @@ describe('ExtensionBase', function() {
     it('should create MERGE command', (done) => {
 
         const command = this.extension
-            ._createMergeCommand(TEST_URI, TEST_TYPE, TEST_RESOURCE, TEST_TO);
+            ._createMergeCommand(TEST_URI, TEST_TYPE, TEST_RESOURCE);
 
         command.uri.should.equal(TEST_URI);
         command.to.should.equal(TEST_TO);
@@ -108,7 +123,7 @@ describe('ExtensionBase', function() {
         });
 
         this.extension._processCommand(
-            this.extension._createGetCommand(TEST_URI, TEST_TO))
+            this.extension._createGetCommand(TEST_URI))
             .then(items => items.should.equal(stored_items))
             .finally(() => done());
 
@@ -123,7 +138,7 @@ describe('ExtensionBase', function() {
         });
 
         this.extension._processCommand(
-            this.extension._createDeleteCommand(TEST_URI, TEST_TO))
+            this.extension._createDeleteCommand(TEST_URI))
             .then(items => (typeof items).should.equal(typeof undefined))
             .finally(() => done());
 

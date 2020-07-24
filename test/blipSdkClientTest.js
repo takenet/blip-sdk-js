@@ -5,7 +5,7 @@
 import Client from '../src/Client';
 import TcpTransport from './helpers/TcpTransport';
 import TcpLimeServer from './helpers/TcpLimeServer';
-import ArtificialIntelligenceExtension from '../src/Extensions/ArtificialIntelligence/ArtificialIntelligence';
+import ArtificialIntelligenceExtension from '../src/Extensions/ArtificialIntelligence';
 
 require('chai').should();
 
