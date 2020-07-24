@@ -2,23 +2,28 @@ import Lime from 'lime-js';
 
 export default class ExtensionBase {
 
-    constructor(client) {
+    constructor(client, to = null) {
         this._client = client;
+        this._to = to;
     }
 
-    _createGetCommand(uri, to, id = null) {
-        return {
+    _createGetCommand(uri, id = null) {
+        let command = {
             id: id ? id : Lime.Guid(),
-            to: to,
             method: 'get',
             uri: uri
         };
+
+        if (this._to) {
+            command.to = this._to;
+        }
+
+        return command;
     }
 
-    _createSetCommand(uri, type, resource, to, id = null) {
+    _createSetCommand(uri, type, resource, id = null) {
         let command = {
             id: id ? id : Lime.Guid(),
-            to: to,
             method: 'set',
             uri: uri,
             resource: resource
@@ -28,27 +33,41 @@ export default class ExtensionBase {
             command.type = type;
         }
 
+        if (this._to) {
+            command.to = this._to;
+        }
+
         return command;
     }
 
-    _createMergeCommand(uri, type, resource, to, id = null) {
-        return {
+    _createMergeCommand(uri, type, resource, id = null) {
+        let command = {
             id: id ? id : Lime.Guid(),
-            to: to,
             method: 'merge',
             uri: uri,
             type: type,
             resource: resource
         };
+
+        if (this._to) {
+            command.to = this._to;
+        }
+
+        return command;
     }
 
-    _createDeleteCommand(uri, to, id = null) {
-        return {
+    _createDeleteCommand(uri, id = null) {
+        let command = {
             id: id ? id : Lime.Guid(),
-            to: to,
             method: 'delete',
             uri: uri
         };
+
+        if (this._to) {
+            command.to = this._to;
+        }
+
+        return command;
     }
 
     _processCommand(command) {
@@ -75,26 +94,28 @@ export default class ExtensionBase {
 
     _buildResourceQuery(uri, query) {
         let i = 0;
+        let options = '';
+
         Object.keys(query).forEach(key => {
             let value = query[key].toString();
             if (value) {
-                uri += i === 0 ? '?' : '&';
+                options += i === 0 ? '?' : '&';
                 
                 if (Array.isArray(value)) {
                     value = value.concat(',');
                 }
 
-                uri += `${key}=${value}`;
+                options += `${key}=${value}`;
                 i += 1;
             }
         });
 
-        return encodeURI(uri);
+        return `${uri}${encodeURI(options)}`;
     }
 
     _buildUri(uri, ...args) {
         args.forEach((arg, i) => {
-            uri = uri.replace(`{${i}}`, arg);
+            uri = uri.replace(`{${i}}`, encodeURIComponent(arg));
         });
 
         return uri;

@@ -1,7 +1,9 @@
 import Lime from 'lime-js';
 import Application from './Application';
 import Promise from 'bluebird';
-import ArtificialIntelligenceExtension from './Extensions/ArtificialIntelligence/ArtificialIntelligence';
+import ArtificialIntelligenceExtension from './Extensions/ArtificialIntelligence';
+import MediaExtension from './Extensions/Media';
+import ChatExtension from './Extensions/Chat';
 
 const identity = (x) => x;
 const MAX_CONNECTION_TRY_COUNT = 10;
@@ -239,10 +241,10 @@ export default class Client {
         });
     }
 
-    _getExtension(type) {
+    _getExtension(type, to = null) {
         let extension = this._extensions[type];
         if (!extension) {
-            extension = new type(this);
+            extension = new type(this, to);
             this._extensions[type] = extension;
         }
         return extension;
@@ -401,7 +403,15 @@ export default class Client {
     get uri() { return this._uri; }
 
     get ArtificialIntelligence() {
-        return this._getExtension(ArtificialIntelligenceExtension);
+        return this._getExtension(ArtificialIntelligenceExtension, this._application.domain);
+    }
+
+    get Media() {
+        return this._getExtension(MediaExtension, this._application.domain);
+    }
+
+    get Chat() {
+        return this._getExtension(ChatExtension);
     }
 }
 
