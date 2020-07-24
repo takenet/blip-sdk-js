@@ -2,25 +2,26 @@ import Lime from 'lime-js';
 
 export default class ExtensionBase {
 
-    constructor(client) {
+    constructor(client, to = null) {
         this._client = client;
+        this._to = to;
     }
 
-    _createGetCommand(uri, to = null, id = null) {
+    _createGetCommand(uri, id = null) {
         let command = {
             id: id ? id : Lime.Guid(),
             method: 'get',
             uri: uri
         };
 
-        if (to) {
-            command.to = to;
+        if (this._to) {
+            command.to = this._to;
         }
 
         return command;
     }
 
-    _createSetCommand(uri, type, resource, to = null, id = null) {
+    _createSetCommand(uri, type, resource, id = null) {
         let command = {
             id: id ? id : Lime.Guid(),
             method: 'set',
@@ -32,14 +33,14 @@ export default class ExtensionBase {
             command.type = type;
         }
 
-        if (to) {
-            command.to = to;
+        if (this._to) {
+            command.to = this._to;
         }
 
         return command;
     }
 
-    _createMergeCommand(uri, type, resource, to = null, id = null) {
+    _createMergeCommand(uri, type, resource, id = null) {
         let command = {
             id: id ? id : Lime.Guid(),
             method: 'merge',
@@ -48,22 +49,22 @@ export default class ExtensionBase {
             resource: resource
         };
 
-        if (to) {
-            command.to = to;
+        if (this._to) {
+            command.to = this._to;
         }
 
         return command;
     }
 
-    _createDeleteCommand(uri, to = null, id = null) {
+    _createDeleteCommand(uri, id = null) {
         let command = {
             id: id ? id : Lime.Guid(),
             method: 'delete',
             uri: uri
         };
 
-        if (to) {
-            command.to = to;
+        if (this._to) {
+            command.to = this._to;
         }
 
         return command;

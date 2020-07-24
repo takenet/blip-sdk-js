@@ -1,6 +1,6 @@
-import ArtificialIntelligence from './ArtificialIntelligence/ArtificialIntelligence';
-import Media from './Media/Media';
-import Chat from './Chat/Chat';
+import ArtificialIntelligence from './ArtificialIntelligence';
+import Media from './Media';
+import Chat from './Chat';
 
 export default {
     ArtificialIntelligence,

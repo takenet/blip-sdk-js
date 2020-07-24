@@ -1,13 +1,12 @@
 import * as UriTemplates from './UriTemplates';
 import ExtensionBase from '../ExtensionBase';
 
-const POSTMASTER_MEDIA = 'postmaster@media.msging.net';
+const POSTMASTER_MEDIA = 'postmaster@media';
 
 export default class MediaExtension extends ExtensionBase {
 
-    constructor(client, to = null) {
-        super(client);
-        this._to = to ? to : POSTMASTER_MEDIA;
+    constructor(client, domain) {
+        super(client, `${POSTMASTER_MEDIA}.${domain}`);
     }
 
     getUploadToken(secure = false) {
@@ -15,14 +14,13 @@ export default class MediaExtension extends ExtensionBase {
             this._createGetCommand(
                 this._buildResourceQuery(UriTemplates.MEDIA_UPLOAD, {
                     secure: secure
-                }),
-                this._to));
+                })));
     }
 
     refreshMedia(id) {
         return this._processCommand(
             this._createGetCommand(
-                this._buildUri(UriTemplates.REFRESH_MEDIA, id), this._to));
+                this._buildUri(UriTemplates.REFRESH_MEDIA, id)));
     }
 
 }

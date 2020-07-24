@@ -5,7 +5,7 @@ import ExtensionBase from '../ExtensionBase';
 export default class ChatExtension extends ExtensionBase {
 
     constructor(client) {
-        super(client);
+        super(client, null);
     }
 
     getThreads(take = 100, messageDate = '') {
@@ -23,6 +23,8 @@ export default class ChatExtension extends ExtensionBase {
         messageId = '',
         storageDate = '',
         direction = '',
+        decryptContent = false,
+        refreshExpiredMedia = false,
         after = ''
     ) {
         return this._processCommand(
@@ -34,7 +36,9 @@ export default class ChatExtension extends ExtensionBase {
                         after: after,
                         messageId: messageId,
                         storageDate: storageDate,
-                        direction: direction
+                        direction: direction,
+                        decryptContent: decryptContent,
+                        refreshExpiredMedia: refreshExpiredMedia
                     })));
     }
 
