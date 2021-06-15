@@ -125,7 +125,7 @@ export default class Client {
                     event: Lime.NotificationEvent.RECEIVED,
                     metadata: {
                         '#message.to': message.to,
-                        '#message.uniqueId': message.metadata ? message.metadata["$internalId"] || null : null
+                        '#message.uniqueId': message.metadata ? message.metadata['#uniqueId'] || null : null
 
                     }
                 });
@@ -204,7 +204,7 @@ export default class Client {
                 event: Lime.NotificationEvent.CONSUMED,
                 metadata: {
                     '#message.to': message.to,
-                    '#message.uniqueId': message.metadata ? message.metadata["$internalId"] || null : null
+                    '#message.uniqueId': message.metadata ? message.metadata['#uniqueId'] || null : null
                 }
             });
         }
