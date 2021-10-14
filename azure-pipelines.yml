@@ -1,0 +1,26 @@
+trigger:
+- master
+
+pool:
+  vmImage: ubuntu-latest
+
+variables:
+- group: npmjs-sample-variables
+
+resources:
+  repositories:   
+  - repository: templates
+    type: git
+    name: Operações/template-take-blip
+    ref: refs/tags/v1.3.5
+
+extends:
+  template: template-pipeline.yml@templates    
+  parameters:    
+    packagename: blip-sdk-js
+    type: javascript
+    to: semantic-release
+    npmCmds:
+    - run: npm ci
+    - run: npm run bundle
+    - run: npm publish
