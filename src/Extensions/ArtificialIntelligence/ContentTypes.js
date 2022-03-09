@@ -27,3 +27,5 @@ export const WORD_SET = 'application/vnd.iris.ai.word-set+json';
 export const WORD_SET_ANALYSIS = 'application/vnd.iris.ai.word-set-analysis+json';
 
 export const WORD_SET_WORD = 'application/vnd.iris.ai.word+json';
+
+export const PROVIDER_CONNECTION = 'application/vnd.iris.ai.provider-test-connection+json';

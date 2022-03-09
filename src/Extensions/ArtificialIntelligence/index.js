@@ -395,4 +395,11 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
                 this._buildUri(UriTemplates.CONTENT_ID, id)));
     }
 
+    testProviderConnectionAsync(providerConnection) {
+        return this._processCommand(
+            this._createSetCommand(
+                this._buildUri(UriTemplates.PROVIDER_TEST_CONNECTION), ContentTypes.PROVIDER_CONNECTION, providerConnection
+            )
+        );
+    }
 }
