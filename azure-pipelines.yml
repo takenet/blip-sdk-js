@@ -23,4 +23,3 @@ extends:
     npmCmds:
     - npm ci
     - npm run bundle
-    - npm publish
