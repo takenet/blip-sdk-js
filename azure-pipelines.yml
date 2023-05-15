@@ -1,5 +1,9 @@
 trigger:
-- master
+  branches:
+    include:
+    - master
+    - beta/*
+    - hotfix/*
 
 pool:
   vmImage: ubuntu-latest
