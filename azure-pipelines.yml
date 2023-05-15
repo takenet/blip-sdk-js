@@ -25,6 +25,6 @@ extends:
     type: javascript
     to: semantic-release
     npmCmds:
-    - run: npm ci
-    - run: npm run bundle
-    - run: npm publish
+    - 'npm ci'
+    - 'npm run bundle'
+    - 'npm publish'
