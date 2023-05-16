@@ -9,8 +9,7 @@ pool:
   vmImage: ubuntu-latest
 
 variables:
-- group: npmjs-sample-variables
-  skipSonarBranch: true
+- group: npmjs-variables
 
 resources:
   repositories:   
