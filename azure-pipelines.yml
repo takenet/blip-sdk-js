@@ -10,6 +10,7 @@ pool:
 
 variables:
 - group: npmjs-variables
+- group: blip-sdk-js-sonar-qube
 
 resources:
   repositories:   
