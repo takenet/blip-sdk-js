@@ -19,7 +19,7 @@
     "test:single": "./node_modules/.bin/babel-node ./node_modules/babel-istanbul/lib/cli cover ./node_modules/mocha/bin/_mocha -- --recursive ./test -R spec",
     "test:check-coverage": "./node_modules/.bin/istanbul check-coverage",
     "test:upload-coverage": "cat ./coverage/lcov.info | codecov",
-    "semantic-release": "semantic-release --prepare && npm publish && semantic-release post",
+    "semantic-release": "semantic-release",
     "semantic-release-local": "semantic-release --prepare --debug=false && npm publish && semantic-release post --debug=false"
   },
   "repository": {
