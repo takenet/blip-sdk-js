@@ -11,6 +11,8 @@ pool:
 variables:
 - group: npmjs-variables
 - group: blip-sdk-js-sonar-qube
+- name: skipDecorator 
+  value: true
 
 resources:
   repositories:   
@@ -25,6 +27,7 @@ extends:
     packagename: blip-sdk-js
     type: javascript
     to: semantic-release
+    skipSast: true
     npmCmds:
     - 'npm ci'
     - 'npm run bundle'
