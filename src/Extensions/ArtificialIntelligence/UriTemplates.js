@@ -45,3 +45,7 @@ export const CONTENT = '/content';
 export const CONTENT_ID = '/content/{0}';
 
 export const CONTENT_ANALYSIS = '/content/analysis';
+
+export const CONTENT_TAGS = '/content-tags';
+
+export const CONTENT_TAG_ID = '/content-tag/{0}';
