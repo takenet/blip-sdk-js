@@ -10,6 +10,8 @@ export const CONTENT_RESULT = 'application/vnd.iris.ai.content-result+json';
 
 export const CONTENT_COMBINATION = 'application/vnd.iris.ai.content-combination+json';
 
+export const CONTENT_TAG = 'application/vnd.iris.ai.tag+json';
+
 export const ENTITY = 'application/vnd.iris.ai.entity+json';
 
 export const INTENTION = 'application/vnd.iris.ai.intention+json';

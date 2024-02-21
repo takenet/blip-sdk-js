@@ -247,6 +247,40 @@ export default class ArtificialIntelligenceExtension extends ExtensionBase {
             this._createDeleteCommand(UriTemplates.ENTITIES));
     }
 
+    // Content Tag
+
+    getContentTag(id) {
+        return this._processCommand(
+            this._createGetCommand(this._buildUri(UriTemplates.CONTENT_TAG_ID, id)));
+    }
+
+    getContentTags(skip = 0, take = 100, ascending = false, name = '') {
+        return this._processCommand(
+            this._createGetCommand(
+                this._buildResourceQuery(UriTemplates.CONTENT_TAGS, {
+                    $skip: skip,
+                    $take: take,
+                    $ascending: ascending,
+                    name: name
+                })));
+    }
+
+    setContentTag(tag) {
+        return this._processCommand(
+            this._createSetCommand(UriTemplates.CONTENT_TAGS, ContentTypes.CONTENT_TAG, tag));
+    }
+
+    deleteContentTag(id) {
+        return this._processCommand(
+            this._createDeleteCommand(this._buildUri(UriTemplates.CONTENT_TAG_ID, id)));
+    }
+
+    deleteContentTags() {
+        return this._processCommand(
+            this._createDeleteCommand(UriTemplates.CONTENT_TAGS));
+    }
+
+
     // Model
 
     getModels(skip = 0, take = 100, ascending = false) {
