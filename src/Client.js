@@ -238,7 +238,8 @@ export default class Client {
                     'accepted',
                     'dispatched',
                     'received',
-                    'consumed'
+                    'consumed',
+                    'deleted'
                 ]
             }
         });
