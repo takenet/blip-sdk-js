@@ -125,7 +125,8 @@ describe('Client', function () {
                         'accepted',
                         'dispatched',
                         'received',
-                        'consumed'
+                        'consumed',
+                        'deleted'
                     ]
                 }
             });
