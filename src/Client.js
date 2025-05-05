@@ -279,6 +279,11 @@ export default class Client {
         this._clientChannel.sendNotification(notification);
     }
 
+    // sendNotification :: Notification -> ()
+    sendNotification2(notification) {
+        this._clientChannel.sendNotification(notification);
+    }
+    
     // sendCommand :: Command -> Number -> Promise Command
     sendCommand(command, timeout = this._application.commandTimeout) {
         var commandPromise = Promise.race([
