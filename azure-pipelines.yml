@@ -13,7 +13,7 @@ resources:
   - repository: templates
     type: git
     name: Operações/template-take-blip
-    ref: refs/tags/latest
+    ref: feature/update-dotnet-task
 
 extends:
   template: template-pipeline.yml@templates    
