@@ -7,21 +7,13 @@ pool:
 variables:
 - group: npmjs-sample-variables
 - group: blip-sdk-js-sonar-qube
-- name: sonarQubeKey
-  value: blip-sdk-js
-- name: sonarQubeName
-  value: blip-sdk-js
-- name: checkmarxName
-  value: blip-sdk-js
-- name: skipDecorator
-  value: true
 
 resources:
   repositories:   
   - repository: templates
     type: git
     name: Operações/template-take-blip
-    ref: refs/tags/latest
+    ref: refs/tags/v1.3.5
 
 extends:
   template: template-pipeline.yml@templates    
