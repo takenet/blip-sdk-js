@@ -2,7 +2,7 @@ trigger:
 - master
 
 pool:
-  vmImage: ubuntu-22.04
+  vmImage: ubuntu-latest
 
 variables:
 - group: npmjs-sample-variables
@@ -13,15 +13,16 @@ resources:
   - repository: templates
     type: git
     name: Operações/template-take-blip
-    ref: feature/update-dotnet-task
+    ref: refs/tags/latest
 
 extends:
   template: template-pipeline.yml@templates    
-  parameters:    
+  parameters:
     packagename: blip-sdk-js
     type: javascript
     to: semantic-release
     npmCmds:
-    - 'npm ci'
-    - 'npm run bundle'
-    - 'npm publish'
+    - 'npm install'
+    - 'npm prune'
+    - 'npm run lint'
+    - 'npm run bundle:min'
