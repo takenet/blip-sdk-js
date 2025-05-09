@@ -13,7 +13,8 @@ resources:
   - repository: templates
     type: git
     name: Operações/template-take-blip
-    ref: refs/tags/latest
+    ref: update-dotnet-task
+    #ref: refs/tags/latest
 
 extends:
   template: template-pipeline.yml@templates    
@@ -24,5 +25,6 @@ extends:
     to: semantic-release
     npmCmds:
     - 'npm ci'
+    - 'npm cache clean --force'
     - 'npm run bundle'
     - 'npm publish'
