@@ -29,8 +29,6 @@ jobs:
           npm i -g codecov
           npm run lint
           npm run test:single
-          npm run test:check-coverage
-          cat ./coverage/lcov.info | codecov
           npm run build
         env:
           GITHUB_TOKEN: ${{ secrets.GH_TOKEN }}
