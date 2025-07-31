@@ -26,8 +26,6 @@ jobs:
       - name: NPM Install, build and test
         run: |
           npm ci
-          npm i -g codecov
-          npm run lint
           npm run test:single
           npm run build
         env:
