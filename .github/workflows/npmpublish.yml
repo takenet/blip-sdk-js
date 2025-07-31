@@ -1,10 +1,11 @@
 name: Publish
 
 on:
-  release:
-    types: [ published ]
   push:
-    branches: [ master ]
+    branches:
+      - master
+      - main
+    
     paths:
       - '.github/workflows/npmpublish.yml'
 
